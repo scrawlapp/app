@@ -6,7 +6,10 @@ let pool: Pool;
 export function setupDatabase(databaseURL: string) {
 
     pool = new Pool({
-        connectionString: databaseURL
+        connectionString: databaseURL,
+        ssl: {
+            rejectUnauthorized: false // this is a workaround, pg rejects the connection otherwise
+        }
     });
 }
 
