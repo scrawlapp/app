@@ -25,7 +25,9 @@ app.get('/', async (req: express.Request, res: express.Response) => {
         message += '<p>I can talk to the database server.</p>';
 
         const client = getClient();
-        await client.connect();
+        if (!client.isOpen) {
+            await client.connect();
+        }
         await client.set('key', 'value');
         message += '<p>I can talk to the cache server.</p>';
 
