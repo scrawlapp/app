@@ -4,6 +4,7 @@
   "description": "block based editing",
   "main": "index.js",
   "scripts": {
+    "start": "node build/server.js",
     "test": "npx jest --coverage",
     "build": "npx tsc",
     "pretty": "npx prettier --write .",
@@ -51,6 +52,6 @@
     "typescript": "^4.5.5"
   },
   "engines": {
-    "node": ">=16.13"
+    "node": "16.x"
   }
 }
