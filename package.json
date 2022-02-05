@@ -6,9 +6,8 @@
   "scripts": {
     "start": "node build/server.js",
     "test": "npx jest --coverage",
-    "build": "npx tsc",
-    "heroku-postbuild": "cd web && npm install && npm run build",
-    "build-dev": "npm run build && cd web && npm run build",
+    "heroku-postbuild": "npx tsc && cd web && npm install && npm run build",
+    "build-dev": "npx tsc && cd web && npm run build",
     "pretty": "npx prettier --write .",
     "lint": "npx eslint . --fix",
     "quality": "npm run lint && npm run pretty"
