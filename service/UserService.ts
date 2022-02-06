@@ -33,7 +33,7 @@ export class UserService {
             }
 
             const u = await database.getUser(user.email);
-            if (u.id !== '') {
+            if (u !== undefined && u.id !== '') {
                 throw new errors.ErrEmailExists;
             }
 
@@ -54,7 +54,7 @@ export class UserService {
                 throw new errors.ErrInvalidEmailPassword;
             }
 
-            const isGood = await bcrypt.compare(password, user.password);
+            const isGood = await bcrypt.compare(password, user.password.toString());
             
             if (!isGood) {
                 throw new errors.ErrInvalidEmailPassword;
@@ -72,6 +72,11 @@ export class UserService {
 
         try {
             const cacheClient = cache.getClient();
+            
+            if (!cacheClient.isOpen) {
+                await cacheClient.connect();
+            }
+
             await cacheClient.SET(token, 'true');
         } catch (err) {
             throw err;
@@ -83,9 +88,12 @@ export class UserService {
 
         try {
             const cacheClient = cache.getClient();
+            if (!cacheClient.isOpen) {
+                await cacheClient.connect();
+            }
             const cached = await cacheClient.GET(token);
 
-            if (cached !== 'true') {
+            if (cached === 'true') {
                 throw errors.ErrInvalidJWT;
             }
 
@@ -127,7 +135,7 @@ export class UserService {
                 throw new Error('Unable to validate.');
             }
 
-            const isGood = await bcrypt.compare(oldPassword, user.password);
+            const isGood = await bcrypt.compare(oldPassword, user.password.toString());
             if (!isGood) {
                 throw new Error('Unable to validate.');
             }
