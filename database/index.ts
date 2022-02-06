@@ -13,6 +13,14 @@ export function setupDatabase(databaseURL: string) {
     });
 }
 
+export async function terminatePool() {
+    try {
+        await pool.end();
+    } catch (err) { 
+        console.log(err);
+    }
+}
+
 // This is what you should you use if you want to execute a statement
 // and you do not care about the returned content. 
 // Ideal for INSERT/UPDATE/DELETE statements.
@@ -23,15 +31,14 @@ export async function execWithTransaction(prepared: string, ...args: any[]) {
     try {
 
         await client.query('BEGIN');
-        await client.query(prepared, ...args);
+        await client.query(prepared, args);
         await client.query('COMMIT');
     } catch (err) {
 
         await client.query('ROLLBACK');
         throw err;
     } finally {
-
-        client.release();
+        client.release();        
     }
 }
 
@@ -46,7 +53,7 @@ export async function queryWithTransaction(prepared: string,
     try {
 
         await client.query('BEGIN');
-        const rows = await client.query(prepared, ...args);
+        const rows = await client.query(prepared, args);
         const err = scanRows(rows);
         if (err !== undefined) {
             throw err;
