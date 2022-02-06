@@ -18,5 +18,5 @@
         "strictPropertyInitialization": false,
         "emitDecoratorMetadata": true
     },
-    "exclude": ["node_modules", "build", "web"]
+    "exclude": ["node_modules", "build", "web", "coverage"]
 }
