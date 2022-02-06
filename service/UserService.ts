@@ -147,6 +147,15 @@ export class UserService {
         }
     }
 
+    public async deleteUser(id: string) {
+
+        try {
+            await database.deleteUser(id);
+        } catch (err) {
+            throw err;
+        }
+    }
+
     private createJWT(userId: string): string {
         
         const TOKEN_AGE = '1d';

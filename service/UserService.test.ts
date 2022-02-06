@@ -25,7 +25,7 @@ test('sign up', async () => {
         };
 
         await userService.signup(user);
-        await database.deleteUser(user.id);
+        await userService.deleteUser(user.id);
     } catch (err) {
         throw err;
     }
@@ -52,7 +52,7 @@ test('login', async () => {
         }
 
         expect(decoded.userId).toBe(user.id);
-        await database.deleteUser(user.id);
+        await userService.deleteUser(user.id);
     } catch (err) {
         throw err;
     }
@@ -74,7 +74,7 @@ test('logout', async () => {
         const token = await userService.login(user.email, unhashedPassword);
         await userService.logout(token);
         
-        await database.deleteUser(user.id);
+        await userService.deleteUser(user.id);
         const cacheClient = cache.getClient();
         if (cacheClient.isOpen) {
             cacheClient.disconnect();
@@ -113,7 +113,7 @@ test('update user fields', async () => {
         user.password = 'alicepasswordUpdated';
         await userService.updatePassword(user.email, unhashedPassword, user.password);
         await userService.login(user.email, user.password);
-        await database.deleteUser(user.id);
+        await userService.deleteUser(user.id);
     } catch (err) {
         
         throw err;
