@@ -44,7 +44,7 @@ test('login', async () => {
 
         const unhashedPassword = user.password;
         await userService.signup(user);
-        const token = await userService.login(user.email, unhashedPassword);
+        const { token } = await userService.login(user.email, unhashedPassword);
         const decoded = await userService.verifyAndDecodeJWT(token);
         
         if (decoded === undefined) {
@@ -71,7 +71,7 @@ test('logout', async () => {
 
         const unhashedPassword = user.password;
         await userService.signup(user);
-        const token = await userService.login(user.email, unhashedPassword);
+        const { token } = await userService.login(user.email, unhashedPassword);
         await userService.logout(token);
         
         await userService.deleteUser(user.id);
