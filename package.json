@@ -10,7 +10,8 @@
     "build-dev": "npx tsc && cd web && npm run build",
     "pretty": "npx prettier --write .",
     "lint": "npx eslint . --fix",
-    "quality": "npm run lint && npm run pretty"
+    "quality": "npm run lint && npm run pretty",
+    "docs": "npx apidoc -i routes/ -o docs"
   },
   "repository": {
     "type": "git",
