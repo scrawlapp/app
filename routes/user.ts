@@ -210,7 +210,7 @@ userRouter.put('/password', async (req: express.Request, res: express.Response) 
 });
 
 /**
- * @api {delete} /api/user/password Delete account
+ * @api {delete} /api/user/ Delete account
  * @apiGroup User
  * @apiName Delete account
  * @apiError (ServerError) {json} 500 Need to check server logs
