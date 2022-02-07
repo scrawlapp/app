@@ -18,6 +18,9 @@ module.exports = {
     "rules": {
         "block-scoped-var": "error",
         "no-duplicate-imports": "error",
+        "no-useless-catch": "off",
+        "no-control-regex": "off",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off"
     },
 };
