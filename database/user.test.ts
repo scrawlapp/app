@@ -11,7 +11,7 @@ afterAll(async () => await terminatePool())
 
 test('insert/get/delete user', async () => {
 
-    let user: entity.User = {
+    const user: entity.User = {
         id: '',
         firstName: 'John',
         lastName: 'Doe',
@@ -19,22 +19,16 @@ test('insert/get/delete user', async () => {
         password: 'johnpassword'
     }
 
-    try {
-
-        await insertUser(user);
-        let u = await getUser(user.email);
-        u.password = u.password.toString();
-        expect(user).toEqual(u);
-        deleteUser(user.id);
-    } catch (err) {
-
-        throw err;
-    }
+    await insertUser(user);
+    const u = await getUser(user.email);
+    u.password = u.password.toString();
+    expect(user).toEqual(u);
+    deleteUser(user.id);
 });
 
 test('update user fields', async () => {
 
-    let user: entity.User = {
+    const user: entity.User = {
         id: '',
         firstName: 'Alice',
         lastName: 'Wonderland',
@@ -42,29 +36,21 @@ test('update user fields', async () => {
         password: 'alicepassword'
     }
 
-    try {
+    await insertUser(user);
+    user.firstName = 'AliceUpdated';
+    await updateFirstName(user.id, user.firstName);
+    let u = await getUser(user.email);
+    expect(u.firstName).toBe(user.firstName);
 
-        await insertUser(user);
+    user.lastName = 'WonderlandUpdated';
+    await updateLastName(user.id, user.lastName);
+    u = await getUser(user.email);
+    expect(u.lastName).toBe(user.lastName);
 
-        user.firstName = 'AliceUpdated';
-        await updateFirstName(user.id, user.firstName);
-        let u = await getUser(user.email);
-        expect(u.firstName).toBe(user.firstName);
+    user.password = 'alicepasswordUpdated';
+    await updatePassword(user.id, user.password);
+    u = await getUser(user.email);
+    expect(u.password.toString()).toBe(user.password);
 
-
-        user.lastName = 'WonderlandUpdated';
-        await updateLastName(user.id, user.lastName);
-        u = await getUser(user.email);
-        expect(u.lastName).toBe(user.lastName);
-
-        user.password = 'alicepasswordUpdated';
-        await updatePassword(user.id, user.password);
-        u = await getUser(user.email);
-        expect(u.password.toString()).toBe(user.password);
-
-        await deleteUser(user.id);
-    } catch (err) {
-        
-        throw err;
-    }
+    await deleteUser(user.id);
 });

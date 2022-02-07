@@ -15,78 +15,66 @@ const userService = UserService.getInstance();
 
 test('sign up', async () => {
 
-    try {
-        let user: entity.User = {
-            id: '',
-            firstName: 'Aman',
-            lastName: 'Bansal',
-            email: 'aman@gmail.com',
-            password: 'Amanpassword2402@'
-        };
+    const user: entity.User = {
+        id: '',
+        firstName: 'Aman',
+        lastName: 'Bansal',
+        email: 'aman@gmail.com',
+        password: 'Amanpassword2402@'
+    };
 
-        await userService.signup(user);
-        await userService.deleteUser(user.id);
-    } catch (err) {
-        throw err;
-    }
+    await userService.signup(user);
+    await userService.deleteUser(user.id);
 });
 
 test('login', async () => {
 
-    try {
-        let user: entity.User = {
-            id: '',
-            firstName: 'Naman',
-            lastName: 'Bansal',
-            email: 'naman@gmail.com',
-            password: 'Namanpassword2402@'
-        };
+    const user: entity.User = {
+        id: '',
+        firstName: 'Naman',
+        lastName: 'Bansal',
+        email: 'naman@gmail.com',
+        password: 'Namanpassword2402@'
+    };
 
-        const unhashedPassword = user.password;
-        await userService.signup(user);
-        const { token } = await userService.login(user.email, unhashedPassword);
-        const decoded = await userService.verifyAndDecodeJWT(token);
-        
-        if (decoded === undefined) {
-            throw new Error('Could not verify.');
-        }
-
-        expect(decoded.userId).toBe(user.id);
-        await userService.deleteUser(user.id);
-    } catch (err) {
-        throw err;
+    const unhashedPassword = user.password;
+    await userService.signup(user);
+    const { token } = await userService.login(user.email, unhashedPassword);
+    const decoded = await userService.verifyAndDecodeJWT(token);
+    
+    if (decoded === undefined) {
+        throw new Error('Could not verify.');
     }
+
+    expect(decoded.userId).toBe(user.id);
+    await userService.deleteUser(user.id);
 });
 
 test('logout', async () => {
 
-    try {
-        let user: entity.User = {
-            id: '',
-            firstName: 'Aman',
-            lastName: 'Mittal',
-            email: 'aman.mittal@me.com',
-            password: 'Amanpassword2402@'
-        };
+    const user: entity.User = {
+        id: '',
+        firstName: 'Aman',
+        lastName: 'Mittal',
+        email: 'aman.mittal@me.com',
+        password: 'Amanpassword2402@'
+    };
 
-        const unhashedPassword = user.password;
-        await userService.signup(user);
-        const { token } = await userService.login(user.email, unhashedPassword);
-        await userService.logout(token);
-        
-        await userService.deleteUser(user.id);
-        const cacheClient = cache.getClient();
-        if (cacheClient.isOpen) {
-            cacheClient.disconnect();
-        }
-    } catch (err) {
-        throw err;
+    const unhashedPassword = user.password;
+    await userService.signup(user);
+    const { token } = await userService.login(user.email, unhashedPassword);
+    await userService.logout(token);
+    
+    await userService.deleteUser(user.id);
+    const cacheClient = cache.getClient();
+    if (cacheClient.isOpen) {
+        cacheClient.disconnect();
     }
 });
 
 test('update user fields', async () => {
 
-    let user: entity.User = {
+    const user: entity.User = {
         id: '',
         firstName: 'Alice',
         lastName: 'Wonderland',
@@ -94,29 +82,23 @@ test('update user fields', async () => {
         password: 'Alicepassword24@'
     }
 
-    try {
+    const unhashedPassword = user.password;
+    await userService.signup(user);
 
-        const unhashedPassword = user.password;
-        await userService.signup(user);
-
-        user.firstName = 'AliceUpdated';
-        await userService.updateFirstName(user.email, user.firstName);
-        let u = await database.getUser(user.email);
-        expect(u.firstName).toBe(user.firstName);
+    user.firstName = 'AliceUpdated';
+    await userService.updateFirstName(user.email, user.firstName);
+    let u = await database.getUser(user.email);
+    expect(u.firstName).toBe(user.firstName);
 
 
-        user.lastName = 'WonderlandUpdated';
-        await userService.updateLastName(user.email, user.lastName);
-        u = await database.getUser(user.email);
-        expect(u.lastName).toBe(user.lastName);
+    user.lastName = 'WonderlandUpdated';
+    await userService.updateLastName(user.email, user.lastName);
+    u = await database.getUser(user.email);
+    expect(u.lastName).toBe(user.lastName);
 
-        user.password = 'alicepasswordUpdated';
-        await userService.updatePassword(user.email, unhashedPassword, user.password);
-        await userService.login(user.email, user.password);
-        await userService.deleteUser(user.id);
-    } catch (err) {
-        
-        throw err;
-    }
+    user.password = 'alicepasswordUpdated';
+    await userService.updatePassword(user.email, unhashedPassword, user.password);
+    await userService.login(user.email, user.password);
+    await userService.deleteUser(user.id);
 });
 
