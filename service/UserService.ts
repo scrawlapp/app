@@ -45,7 +45,7 @@ export class UserService {
     }
 
     // returns a JWT if credentials are valid
-    public async login(email: string, password: string): Promise<string> {
+    public async login(email: string, password: string): Promise<any> {
 
         try {
 
@@ -60,7 +60,11 @@ export class UserService {
                 throw new errors.ErrInvalidEmailPassword;
             }
 
-            return this.createJWT(user.id);
+            return {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                token: this.createJWT(user.id)
+            }
         } catch (err) {
 
             throw err;
@@ -108,6 +112,9 @@ export class UserService {
 
         try {
             const user = await database.getUser(email);
+            if (user.id === '') {
+                throw new errors.ErrUpdateUserField;
+            }
             await database.updateFirstName(user.id, firstName);
         } catch (err) {
             throw err;
@@ -119,7 +126,7 @@ export class UserService {
         try {
             const user = await database.getUser(email);
             if (user.id === '') {
-                throw new Error('Unable to validate.');
+                throw new errors.ErrUpdateUserField;
             }
             await database.updateLastName(user.id, lastName);
         } catch (err) {
@@ -132,12 +139,12 @@ export class UserService {
         try {
             const user = await database.getUser(email);
             if (user.id === '') {
-                throw new Error('Unable to validate.');
+                throw new errors.ErrUpdateUserField;
             }
 
             const isGood = await bcrypt.compare(oldPassword, user.password.toString());
             if (!isGood) {
-                throw new Error('Unable to validate.');
+                throw new errors.ErrUpdateUserField;
             }
 
             newPassword = await bcrypt.hash(newPassword, 10);
