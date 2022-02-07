@@ -44,3 +44,11 @@ export class ErrInvalidJWT extends Error {
     }
 }
 
+export class ErrUpdateUserField extends Error {
+
+    constructor() {
+
+        super('Could not update field.');
+        Object.setPrototypeOf(this,ErrInvalidEmailPassword.prototype);
+    }
+}
