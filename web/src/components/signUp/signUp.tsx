@@ -1,10 +1,14 @@
 import React from "react";
+import SignUpHalf from "./signUpHalf";
+import SignInHalf from "./signInHalf";
+import "../../style/auth.css";
 
 function signUp(): JSX.Element{
 
    return(
-      <div>
-         <h1>Sign Up Page</h1>
+      <div className="container">
+         <SignUpHalf/>
+         <SignInHalf/>
       </div>
    );
 }
