@@ -7,3 +7,11 @@ export interface User {
     email: string,
     password: string
 }
+
+// Structure of a Page in the application
+export interface Page {
+
+    id: string,
+    owner: string,
+    name: string
+}
