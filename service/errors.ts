@@ -52,3 +52,12 @@ export class ErrUpdateUserField extends Error {
         Object.setPrototypeOf(this,ErrInvalidEmailPassword.prototype);
     }
 }
+
+export class ErrPageNameBlank extends Error {
+
+    constructor() {
+
+        super('Page name cannot be blank');
+        Object.setPrototypeOf(this,ErrPageNameBlank.prototype);
+    }
+}
