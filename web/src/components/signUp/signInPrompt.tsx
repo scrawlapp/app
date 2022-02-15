@@ -1,7 +1,7 @@
 import React from "react";
 import "../../style/auth.css";
 
-function signInHalf(): JSX.Element{
+function signInPrompt(): JSX.Element{
 
    return(
       <div className="signInPart">
@@ -12,4 +12,4 @@ function signInHalf(): JSX.Element{
    );
 }
 
-export default signInHalf;
+export default signInPrompt;

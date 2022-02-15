@@ -24,22 +24,22 @@ body {
 .signUpPart {
    flex-basis: 350px;
    height: 410px;
-   background-color: #FFFFFF;
+   background-color: #f1f1f1;
    border: 1px solid #d1d9e6;
    border-radius: 10px;
    /*box-shadow: 3px 6px 6px #a5a5a5;*/
-   box-shadow: 4px 4px 8px #b8b9be, -5px -5px 0px white;
+   box-shadow: 4px 4px 8px #b8b9be, -4px -4px 8px white;
 
 }
 
 .signInPart {
    flex-basis: 465px;
    height: 560px;
-   background-color: #FFFFFF;
+   background-color: #f1f1f1;
    border: 1px solid #d1d9e6;
    border-radius: 10px;
    /*box-shadow: 3px 6px 6px #a5a5a5;*/
-   box-shadow: 4px 4px 8px #b8b9be, -5px -5px 0px white;
+   box-shadow: 5px 5px 10px #b8b9be, -5px -5px 10px white;
 }
 
 .form {
@@ -57,7 +57,7 @@ body {
    border: none;
    border-bottom: 2px solid black;
    color: black;
-   background-color: white;
+   background-color: #f1f1f1;
 }
 
 .formButton {
@@ -70,17 +70,15 @@ body {
    font-size: 33px;
    color: white;
    background-color: #2A52BE;
-   opacity: 83%;
-   border: 1px solid white;
+   opacity: 79%;
+   border: 2px solid rgba(42,82,190,1);
    border-radius: 10px;
-   box-shadow: 2px 2px 6px #666666, -2px -2px #2A52BE;
+   box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
 }
 
 .formButton:hover {
    scale: 1.07;
-   margin-left: 64px;
-   margin-top: 30.5px;
-   box-shadow: 4px 5px 10px #666666, -4px -4px #2A52BE;
+   box-shadow: 8px 8px 14px #172c66;
 }
 
 button {
@@ -94,16 +92,14 @@ button {
    color: white;
    background-color: #2A52BE;
    opacity: 83%;
-   border: 1px solid white;
+   border: 2px solid rgba(42,82,190,1);
    border-radius: 10px;
-   box-shadow: 2px 2px 6px #666666, -2px -2px #2A52BE;
+   box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
 }
 
 button:hover {
    scale: 1.07;
-   margin-top: 85px;
-   margin-left: 112px;
-   box-shadow: 4px 5px 10px #666666, -4px -4px #2A52BE;
+   box-shadow: 8px 8px 14px #172c66;
 }
 
 .title {

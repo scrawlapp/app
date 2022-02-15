@@ -1,7 +1,7 @@
 import React from "react";
 import "../../style/auth.css";
 
-function signUpHalf(): JSX.Element{
+function signUpForm(): JSX.Element{
 
    return(
       <div className="signUpPart">
@@ -21,4 +21,4 @@ function signUpHalf(): JSX.Element{
    );
 }
 
-export default signUpHalf;
+export default signUpForm;
