@@ -15,3 +15,15 @@ export interface Page {
     owner: string,
     name: string
 }
+
+// Structure of a Block in the application
+export interface Block {
+
+    id: string,
+    pageId: string,
+    tag: string,
+    html: string,
+    position: number,
+    href: string | null,
+    src: string | null
+}
