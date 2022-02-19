@@ -7,7 +7,7 @@ function signInPrompt(): JSX.Element{
       <div className="signInPart">
          <h1 className="title">Scrawl</h1>
          <h1>Already a user? Start scrawling</h1>
-         <button type="submit">Sign In</button>
+         <button type="submit"><strong>Sign In</strong></button>
       </div>
    );
 }

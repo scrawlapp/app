@@ -15,7 +15,7 @@ function signUpForm(): JSX.Element{
             <br/>
             <input className = "formInput" name="password" placeholder="password"/>
             <br/>
-            <button className = "formButton" type="submit">Sign Up</button> 
+            <button className = "formButton" type="submit"><strong>Sign Up</strong></button> 
          </form>
       </div>
    );
