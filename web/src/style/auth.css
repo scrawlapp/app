@@ -21,7 +21,7 @@ body {
    gap: 120px;
 }
 
-.signUpPart {
+.FormContainer {
    flex-basis: 350px;
    height: 410px;
    background-color: #f1f1f1;
@@ -32,7 +32,7 @@ body {
 
 }
 
-.signInPart {
+.PromptContainer {
    flex-basis: 465px;
    height: 560px;
    background-color: #f1f1f1;
@@ -60,6 +60,10 @@ body {
    background-color: #f1f1f1;
 }
 
+#emailInput {
+   margin-top: 12px;
+}
+
 .formButton {
    outline: 0;
    display: block;
@@ -81,15 +85,17 @@ body {
    box-shadow: 8px 8px 14px #172c66;
 }
 
-button {
+.auth_link {
    outline: 0;
-   display: block;
+   display: inline-block;
+   text-align: center;
    width: 270px;
    margin-left: 100px;
    margin-top: 80px;
    padding: 10px 25px;
    font-size: 45px;
    color: white;
+   text-decoration: none;
    background-color: #2A52BE;
    opacity: 83%;
    border: 2px solid rgba(42,82,190,1);
@@ -97,7 +103,7 @@ button {
    box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
 }
 
-button:hover {
+.auth_link:hover {
    scale: 1.07;
    box-shadow: 8px 8px 14px #172c66;
 }
@@ -108,6 +114,10 @@ button:hover {
    font-size: 85px;
    font-weight: bold;
    text-align: center;
+}
+
+#title {
+   margin-top: 50px;
 }
 
 h1 {

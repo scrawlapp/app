@@ -4,7 +4,7 @@ import "../../style/auth.css";
 function signUpForm(): JSX.Element{
 
    return(
-      <div className="signUpPart">
+      <div className="FormContainer">
          <form className="form">
          <br/><br/>
             <input className = "formInput" name="email"  placeholder="first name"/>
