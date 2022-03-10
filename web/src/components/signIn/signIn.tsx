@@ -3,7 +3,7 @@ import SignInForm from "./signInForm";
 import SignUpPrompt from "./signUpPrompt";
 import "../../style/auth.css";
 
-function signIn(): JSX.Element{
+function SignIn(): JSX.Element{
 
    return(
       <div className="container">
@@ -13,4 +13,4 @@ function signIn(): JSX.Element{
    );
 }
 
-export default signIn;
+export default SignIn;

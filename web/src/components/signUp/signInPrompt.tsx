@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/auth.css";
 import {Link} from "react-router-dom";
 
-function signInPrompt(): JSX.Element{
+function SignInPrompt(): JSX.Element{
 
    return(
       <div className="PromptContainer">
@@ -13,4 +13,4 @@ function signInPrompt(): JSX.Element{
    );
 }
 
-export default signInPrompt;
+export default SignInPrompt;
