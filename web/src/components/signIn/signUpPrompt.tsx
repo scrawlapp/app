@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/auth.css";
 import {Link} from "react-router-dom";
 
-function signUpPrompt(): JSX.Element{
+function SignUpPrompt(): JSX.Element{
 
    return(
       <div className="PromptContainer">
@@ -13,4 +13,4 @@ function signUpPrompt(): JSX.Element{
    );
 }
 
-export default signUpPrompt;
+export default SignUpPrompt;

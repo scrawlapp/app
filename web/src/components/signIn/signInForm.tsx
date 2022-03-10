@@ -1,7 +1,7 @@
 import React from "react";
 import "../../style/auth.css";
 
-function signInForm(): JSX.Element{
+function SignInForm(): JSX.Element{
 
    return(
       <div className="FormContainer">
@@ -17,4 +17,4 @@ function signInForm(): JSX.Element{
    );
 }
 
-export default signInForm;
+export default SignInForm;
