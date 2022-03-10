@@ -11,21 +11,55 @@ export interface BlockProps {
     position: number,
     href: string | null,
     src: string | null,
-    handleChange: (event: ContentEditableEvent) => void,
-    handleBlur: () => void
+    insertBlock: (pageId: string) => void
+    updateBlock: (block: any) => void
+    deleteBlock: (blockId: string) => void
 }
 
-// the core component that renders a contentEditable block
+// the core component that renders a contentEditable block.
 export function Block(props: BlockProps): JSX.Element {
 
     const blockRef = React.useRef(props.html);
 
+    function handleChange(event: ContentEditableEvent) {
+
+        if (event !== null) {
+            blockRef.current = event.target.value;
+            console.log(blockRef.current);
+        }
+    }
+    
+    function handleBlur() {
+    
+        const block = {...props};
+        block.html = blockRef.current;
+        props.updateBlock(block);
+    }
+
+    function handleKeyDown(event: React.KeyboardEvent) {
+
+        if (event === null) {
+            return;
+        }
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleBlur();
+            props.insertBlock(props.pageId);
+        }
+
+        if (event.key === 'Backspace' && blockRef.current === '') {
+            props.deleteBlock(props.id);
+        }
+    }
+
     return(
         <ContentEditable
             html={blockRef.current}
-            onChange={props.handleChange}
-            onBlur={props.handleBlur}
+            onChange={handleChange}
+            onBlur={handleBlur}
             tagName={props.tag}
+            onKeyDown={handleKeyDown}
         />
     );
 }
