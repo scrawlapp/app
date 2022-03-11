@@ -1,10 +1,14 @@
 import React from 'react';
+import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { Block } from '../block/block';
 
 // describe the props to be passed into Page
 export interface PageProps {
 
-    pageId: string
+    pageId: string,
+    pageName: string,
+    updatePageName: (pageId: string, name: string) => void,
+    deletePage: (pageId: string) => void
 }
 
 // describe how the block looks like during network calls
@@ -100,6 +104,7 @@ function deleteBlock(blockId: string) {
 export function Page(props: PageProps): JSX.Element {
 
     const [blocks, setBlocks] = React.useState<BlockStructure[]>([]);
+    const pageNameRef = React.useRef(props.pageName);
 
     // we fetch all blocks only when pageId changes
     // or the Page component is mounted onto the DOM
@@ -107,8 +112,25 @@ export function Page(props: PageProps): JSX.Element {
         fetchAllBlocks(props.pageId, setBlocks);
     }, [props.pageId]);
 
+    function handlePageNameChange(event: ContentEditableEvent) {
+
+        if (event !== null) {
+            pageNameRef.current = event.target.value;
+            props.updatePageName(props.pageId, pageNameRef.current);
+        }
+    }
+
     return(
         <div>
+            <button onClick={() => props.deletePage(props.pageId)}>delete this page</button>
+
+            <ContentEditable
+                html={pageNameRef.current}
+                tagName='p'
+                onChange={handlePageNameChange}
+                onBlur={() => {}}
+            ></ContentEditable>
+
             {blocks.map(block => (
                 <Block 
                     id={block.id}
