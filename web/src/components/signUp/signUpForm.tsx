@@ -10,7 +10,6 @@ function SignUpForm(): JSX.Element{
 
 
    function onSubmit(data: any){
-      console.log("Here");
       fetch('/api/user/signup', {
          method: 'POST',
          headers: {
