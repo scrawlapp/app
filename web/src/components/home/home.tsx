@@ -1,13 +1,14 @@
 import React from 'react';
 import { Page } from '../page/page';
+import "../../style/home.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 
 export interface HomeProps {
-
     name: string
 }
 
 export interface PageStructure {
-
     id: string,
     owner: string,
     name: string
@@ -96,14 +97,17 @@ export function Home(props: HomeProps): JSX.Element {
             body: JSON.stringify({
                 pageName
             })
-        }).then((response) => console.log(response))
+        })
+        .then((response) => console.log(response))
         .catch((err) => console.log(err));
     }
 
-    return (
-        <div>
+    
 
-            <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+    return (
+        <div className="grid-container" >
+
+            {/* <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setNewPageName(event.target.value);
             }}></input>
 
@@ -124,7 +128,34 @@ export function Home(props: HomeProps): JSX.Element {
                         />);
                     }
                 }
-            }
+            } */}
+            <div className='userName'>
+                <strong>
+                Hi Ronak
+                </strong>
+            </div>
+
+            <div className='navBar'>
+                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faUserGroup} /></button>
+                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faGear} /></button>
+                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faRightFromBracket} /></button>
+                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
+            </div>
+
+            <div className='sideNavBar'>
+                <button className='pageList'>your page 1</button>
+                <button className='pageList'>your page 2</button>
+                <button className='pageList'>your page 3</button>
+                <button className='pageList'>your page 4</button>
+                <button className='pageList'>your page 5</button>
+                <button className='pageList'>your page 6</button>
+            </div>
+
+            <div className='page'>
+                <h1 className='pageName'>your page 4</h1>
+                <p className='content'>content of page 4...</p>
+            </div>
+
         </div>
     );
 }
