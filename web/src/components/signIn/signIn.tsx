@@ -8,7 +8,7 @@ function SignIn(): JSX.Element{
    return(
       <div className="container">
          <SignUpPrompt/>
-         <SignInForm/>
+         <SignInForm />
       </div>
    );
 }

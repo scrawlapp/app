@@ -1,9 +1,13 @@
 import React from "react";
 import "../../style/auth.css";
 import { useForm } from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+
 
 function SignInForm(): JSX.Element{
    const {register, handleSubmit} = useForm();
+   let statusCode: boolean = false;
+   const navigate = useNavigate();
 
 
    function onSubmit(data: any){
@@ -16,9 +20,17 @@ function SignInForm(): JSX.Element{
          },
          body: JSON.stringify(data)
       })
-      .then(res => res.json())
-      .then(data => {
+      .then(res => {
+         if(res.status == 200) {
+            statusCode = true;
+         }
+         return res.json();
+      })
+      .then((data) => {
          console.log(data);
+         if (statusCode){
+            navigate(`/home`);
+         }
       })
    }
 
