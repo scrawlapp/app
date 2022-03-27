@@ -13,13 +13,15 @@ function getCookieConfig(): express.CookieOptions {
         return {
             maxAge: 86400000, // 1 day in ms
             httpOnly: true, // prevent attackers from stealing JWT
-            secure: true
+            secure: true,
+            sameSite: 'strict'    
         }
     }
     return {
         maxAge: 86400000, // 1 day in ms
         httpOnly: false,
-        secure: false
+        secure: false,
+        sameSite: 'strict'
     }
 }
 
