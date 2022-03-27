@@ -57,6 +57,7 @@ pageRouter.post('/', async (req: express.Request, res: express.Response) => {
  * @apiGroup Page
  * @apiName Update page name
  * @apiBody {string} name Mandatory, new name of your page
+ * @apiBody {string} pageId Mandatory, id of your page
  * @apiError (ClientError) {json} 400 PageNameBlank
  * @apiError (ServerError) {json} 500 Need to check server logs
  * @apiVersion 0.1.0
@@ -65,9 +66,9 @@ pageRouter.post('/', async (req: express.Request, res: express.Response) => {
 pageRouter.put('/', async (req: express.Request, res: express.Response) => {
 
     try {
-        const { userId, name } = req.body;
+        const { userId, name, pageId } = req.body;
         await pageService.updatePageName({
-            id: '', owner: userId, name: name
+            id: pageId, owner: userId, name: name
         });
         res.status(204).json({ message: messages.MESSAGE_204 });
     } catch (err) {
