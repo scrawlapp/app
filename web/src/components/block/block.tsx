@@ -1,4 +1,5 @@
-import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
+import { ContentEditableEvent } from 'react-contenteditable';
+import ContentEditable from './contentEditable';
 import React from 'react';
 
 // describe how props look like for Block
@@ -11,7 +12,7 @@ export interface BlockProps {
     position: number,
     href: string | null,
     src: string | null,
-    insertBlock: (pageId: string) => void
+    insertBlock: (pageId: string, position: number) => void
     updateBlock: (block: any) => void
     deleteBlock: (blockId: string) => void
 }
@@ -20,6 +21,9 @@ export interface BlockProps {
 export function Block(props: BlockProps): JSX.Element {
 
     const blockRef = React.useRef(props.html);
+    const [pageId, setPageId] = React.useState<string>(props.pageId);
+    const [position, setPosition] = React.useState<number>(props.position);
+    const [id, setId] = React.useState<string>(props.id);
 
     function handleChange(event: ContentEditableEvent) {
 
@@ -30,7 +34,7 @@ export function Block(props: BlockProps): JSX.Element {
     }
     
     function handleBlur() {
-    
+        
         const block = {...props};
         block.html = blockRef.current;
         props.updateBlock(block);
@@ -45,11 +49,11 @@ export function Block(props: BlockProps): JSX.Element {
         if (event.key === 'Enter') {
             event.preventDefault();
             handleBlur();
-            props.insertBlock(props.pageId);
+            props.insertBlock(props.pageId, props.position + 1);
         }
 
-        if (event.key === 'Backspace' && blockRef.current === '') {
-            props.deleteBlock(props.id);
+        if (event.key === 'Backspace' && (blockRef.current === '' || blockRef.current === '<br>')) {
+            props.deleteBlock(id);
         }
     }
 
