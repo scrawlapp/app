@@ -11,7 +11,7 @@ create table if not exists users(
 create table if not exists pages(
     id uuid primary key,
     name varchar not null,
-    owner uuid references users(id)
+    owner uuid references users(id) on delete cascade
 );
 
 -- "ability" represents what the user is capable of doing with a page.
@@ -24,7 +24,7 @@ create table if not exists abilities(
 
 create table if not exists blocks(
     id uuid primary key,
-    "pageId" uuid references pages(id),
+    "pageId" uuid references pages(id) on delete cascade,
     tag varchar not null,
     html varchar not null,
     position integer not null,
