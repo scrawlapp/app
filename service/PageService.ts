@@ -49,7 +49,7 @@ export class PageService {
 
         let allBlank = true;
         for (let i = 0; i < input.length; ++i) {
-            if (input[i] === ' ') {
+            if (input[i] !== ' ') {
                 allBlank = false;
             }
         }
