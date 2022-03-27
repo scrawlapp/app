@@ -5,6 +5,7 @@ dotenv.config();
 import express from 'express';
 import { setupDatabase } from './database';
 import { setupCache } from './cache';
+import cookieParser from 'cookie-parser';
 import api from './routes';
 
 setupDatabase(process.env.DATABASE_URL || '');
@@ -12,6 +13,7 @@ setupCache(process.env.REDIS_URL || '', process.env.REDIS_USER || '', process.en
 
 const app: express.Application = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api', api);
 
 // Serve the React App
