@@ -95,3 +95,5 @@ blockRouter.delete('/', async (req: express.Request, res: express.Response) => {
         res.status(500).json({ message: messages.MESSAGE_500 });
     }
 });
+
+export default blockRouter;
