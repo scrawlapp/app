@@ -1,8 +1,8 @@
 import React from 'react';
 import { Page } from '../page/page';
-import "../../style/home.css";
+import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons'
+import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 export interface HomeProps {
     name: string
@@ -37,7 +37,6 @@ export function Home(props: HomeProps): JSX.Element {
     const [newPageName, setNewPageName] = React.useState<string>('');
 
     React.useEffect(() => {
-
         fetchAllPages(setPagesList);
     }, []);
 
@@ -48,13 +47,10 @@ export function Home(props: HomeProps): JSX.Element {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            console.log(response);
-            const index = pagesList.findIndex(page => page.id === pageId);
-            if (index > -1) {
-                setPagesList((pagesList) => pagesList.splice(index, 1));
-            }
+            },
+            body: JSON.stringify({ pageId })
+        }).then((_) => {
+            setPagesList((pagesList) => pagesList.filter(page => page.id !== pageId));
         })
         .catch((err) => console.log(err));
     }
@@ -95,7 +91,7 @@ export function Home(props: HomeProps): JSX.Element {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                pageName
+                name: pageName
             })
         })
         .then((response) => console.log(response))
@@ -107,32 +103,8 @@ export function Home(props: HomeProps): JSX.Element {
     return (
         <div className="grid-container" >
 
-            {/* <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setNewPageName(event.target.value);
-            }}></input>
-
-            <button onClick={() => insertPage(newPageName)}>insert a new page</button>
-
-            {pagesList.map((page) => (
-                <button onClick={() => setSelectedPage(page)}></button>
-            ))}
-            <p>Hey {props.name}</p>
-            {
-                () => {
-                    if (selectedPage.id !== '') {
-                        return (<Page 
-                            pageId={selectedPage.id}
-                            pageName={selectedPage.name}
-                            updatePageName={updatePageName}
-                            deletePage={deletePage}
-                        />);
-                    }
-                }
-            } */}
             <div className='userName'>
-                <strong>
-                Hi Ronak
-                </strong>
+                <strong>Hi {localStorage.getItem('name') || ''}</strong>
             </div>
 
             <div className='navBar'>
@@ -143,17 +115,23 @@ export function Home(props: HomeProps): JSX.Element {
             </div>
 
             <div className='sideNavBar'>
-                <button className='pageList'>your page 1</button>
-                <button className='pageList'>your page 2</button>
-                <button className='pageList'>your page 3</button>
-                <button className='pageList'>your page 4</button>
-                <button className='pageList'>your page 5</button>
-                <button className='pageList'>your page 6</button>
+                {pagesList.map((page) => (
+                    <button className='pageList' onClick={() => setSelectedPage(page)}>{page.name}</button>
+                ))}
+                <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setNewPageName(event.target.value);
+                }}></input>
+                <button onClick={() => insertPage(newPageName)}>insert a new page</button>
             </div>
 
             <div className='page'>
-                <h1 className='pageName'>your page 4</h1>
-                <p className='content'>content of page 4...</p>
+                <h1 className='pageName'>{selectedPage.name}</h1>
+                <Page 
+                    pageId={selectedPage.id}
+                    pageName={selectedPage.name}
+                    updatePageName={updatePageName}
+                    deletePage={deletePage}
+                />
             </div>
 
         </div>

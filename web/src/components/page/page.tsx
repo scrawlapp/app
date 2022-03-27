@@ -23,7 +23,7 @@ export interface BlockStructure {
     src: string | null,
 }
 
-function insertAnEmptyBlock(pageId: string) {
+function insertAnEmptyBlock(pageId: string, position: number) {
 
     fetch('/api/block/', {
         method: 'POST',
@@ -35,7 +35,7 @@ function insertAnEmptyBlock(pageId: string) {
             pageId,
             tag: 'p',
             html: '',
-            position: 0,
+            position,
             src: null,
             href: null
         })
@@ -49,6 +49,10 @@ function updateBlock(block: any) {
     
     fetch(`/api/block/`, {
         method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(block)
     })
     .then((response) => console.log(response))
@@ -66,7 +70,7 @@ function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetState
     }).then(response => response.json())
     .then(data => {
         if (data.length === 0) {
-            insertAnEmptyBlock(pageId);
+            insertAnEmptyBlock(pageId, 0);
             fetchAllBlocks(pageId, setBlocks);
             return;
         }
@@ -74,7 +78,6 @@ function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetState
             data[0].html = 'click here to begin';
         }
         setBlocks(data);
-        console.log(data);
     }).catch((err) => {
         console.log(err);
     });
@@ -95,7 +98,11 @@ function deleteBlock(blockId: string) {
 
     fetch(`/api/block/`, {
         method: 'DELETE',
-        body: JSON.stringify(blockId)
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id: blockId})
     })
     .then((response) => console.log(response))
     .catch((err) => console.log(err));
@@ -125,7 +132,7 @@ export function Page(props: PageProps): JSX.Element {
             <button onClick={() => props.deletePage(props.pageId)}>delete this page</button>
 
             <ContentEditable
-                html={pageNameRef.current}
+                html={props.pageName}
                 tagName='p'
                 onChange={handlePageNameChange}
                 onBlur={() => {}}
@@ -134,7 +141,7 @@ export function Page(props: PageProps): JSX.Element {
             {blocks.map(block => (
                 <Block 
                     id={block.id}
-                    pageId={block.pageId}
+                    pageId={props.pageId}
                     html={block.html}
                     tag={block.tag}
                     position={block.position}

@@ -9,9 +9,7 @@ function SignInForm(): JSX.Element{
    let statusCode: boolean = false;
    const navigate = useNavigate();
 
-
    function onSubmit(data: any){
-      console.log("here");
       fetch('/api/user/login', {
          method: 'POST',
          headers: {
@@ -28,6 +26,7 @@ function SignInForm(): JSX.Element{
       })
       .then((data) => {
          console.log(data);
+         localStorage.setItem('name', data.firstName);
          if (statusCode){
             navigate(`/home`);
          }
