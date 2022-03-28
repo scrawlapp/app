@@ -15,6 +15,8 @@ export interface BlockProps {
     insertBlock: (pageId: string, position: number) => void
     updateBlock: (block: any) => void
     deleteBlock: (blockId: string) => void
+    fetchAgain: () => void
+    haveFocus: boolean
 }
 
 // the core component that renders a contentEditable block.
@@ -24,6 +26,7 @@ export function Block(props: BlockProps): JSX.Element {
     const [pageId, setPageId] = React.useState<string>(props.pageId);
     const [position, setPosition] = React.useState<number>(props.position);
     const [id, setId] = React.useState<string>(props.id);
+    const ref = React.useRef<HTMLElement>(null);
 
     function handleChange(event: ContentEditableEvent) {
 
@@ -49,12 +52,17 @@ export function Block(props: BlockProps): JSX.Element {
         if (event.key === 'Enter') {
             event.preventDefault();
             handleBlur();
-            props.insertBlock(props.pageId, props.position + 1);
+            props.insertBlock(pageId, position + 1);
+            props.fetchAgain();
         }
 
         if (event.key === 'Backspace' && (blockRef.current === '' || blockRef.current === '<br>')) {
             props.deleteBlock(id);
         }
+    }
+
+    if (props.haveFocus && ref.current) {
+        ref.current.focus();
     }
 
     return(
@@ -64,6 +72,7 @@ export function Block(props: BlockProps): JSX.Element {
             onBlur={handleBlur}
             tagName={props.tag}
             onKeyDown={handleKeyDown}
+            innerRef={ref}
         />
     );
 }
