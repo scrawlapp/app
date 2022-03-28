@@ -4,16 +4,15 @@ import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-export interface HomeProps {
-    name: string
-}
-
+// describe how the Page looks like in memory
 export interface PageStructure {
     id: string,
     owner: string,
     name: string
 }
 
+// GET /api/page/all/
+// takes in the state updater function to add data
 function fetchAllPages(setPagesList: React.Dispatch<React.SetStateAction<PageStructure[]>>) {
 
     fetch('/api/page/all', {
@@ -28,18 +27,23 @@ function fetchAllPages(setPagesList: React.Dispatch<React.SetStateAction<PageStr
     .catch((err) => console.log(err));
 }
 
-export function Home(props: HomeProps): JSX.Element {
+// the Home component
+export function Home(): JSX.Element {
 
     const [pagesList, setPagesList] = React.useState<PageStructure[]>([]);
     const [selectedPage, setSelectedPage] = React.useState<PageStructure>({
         id: '', name: '', owner: ''
     });
     const [newPageName, setNewPageName] = React.useState<string>('');
+    const [pageFetchCue, pageFetchCueCaller] = React.useState<number>(0);
 
+    // fetch only once, when the component is mounted onto the DOM
+    // and when pageFetchCue changes.
     React.useEffect(() => {
         fetchAllPages(setPagesList);
-    }, []);
+    }, [pageFetchCue]);
 
+    // DELETE /api/page/
     function deletePage(pageId: string) {
 
         fetch('/api/page/', {
@@ -50,11 +54,12 @@ export function Home(props: HomeProps): JSX.Element {
             },
             body: JSON.stringify({ pageId })
         }).then((_) => {
-            setPagesList((pagesList) => pagesList.filter(page => page.id !== pageId));
+            pageFetchCueCaller(pageFetchCue + 1);
         })
         .catch((err) => console.log(err));
     }
     
+    // PUT /api/page/
     function updatePageName(pageId: string, name: string) {
     
         fetch('/api/page/', {
@@ -66,18 +71,11 @@ export function Home(props: HomeProps): JSX.Element {
             body: JSON.stringify({
                 pageId, name
             })
-        }).then((response) => {
-            console.log(response);
-            const index = pagesList.findIndex(page => page.id === pageId);
-            if (index > -1) {
-                const newPagesList = pagesList;
-                newPagesList[index].name = name;
-                setPagesList(newPagesList);
-            }
-        })
+        }).then((response) => console.log(response))
         .catch((err) => console.log(err));
     }
 
+    // POST /api/page/
     function insertPage(pageName: string) {
 
         if (pageName === '') {
@@ -93,13 +91,13 @@ export function Home(props: HomeProps): JSX.Element {
             body: JSON.stringify({
                 name: pageName
             })
+        }).then((_) => {
+            pageFetchCueCaller(pageFetchCue + 1);
         })
-        .then((response) => console.log(response))
         .catch((err) => console.log(err));
     }
 
     
-
     return (
         <div className="grid-container" >
 
@@ -125,8 +123,7 @@ export function Home(props: HomeProps): JSX.Element {
             </div>
 
             <div className='page'>
-                <h1 className='pageName'>{selectedPage.name}</h1>
-                <Page 
+                <Page
                     pageId={selectedPage.id}
                     pageName={selectedPage.name}
                     updatePageName={updatePageName}
