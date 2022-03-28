@@ -23,7 +23,12 @@ export interface BlockStructure {
     src: string | null,
 }
 
+// POST /api/block/
 function insertAnEmptyBlock(pageId: string, position: number) {
+
+    if (pageId.length < 32) {
+        return;
+    }
 
     fetch('/api/block/', {
         method: 'POST',
@@ -44,7 +49,7 @@ function insertAnEmptyBlock(pageId: string, position: number) {
     .catch((err) => console.log(err));
 } 
 
-
+// PUT /api/block/
 function updateBlock(block: any) {
     
     fetch(`/api/block/`, {
@@ -59,6 +64,7 @@ function updateBlock(block: any) {
     .catch((err) => console.log(err));
 }
 
+// GET /api/block/all/:pageId
 function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetStateAction<BlockStructure[]>>) {
 
     fetch(`/api/block/all/${pageId}`, {
@@ -74,26 +80,13 @@ function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetState
             fetchAllBlocks(pageId, setBlocks);
             return;
         }
-        if (data.length === 1) {
-            data[0].html = 'click here to begin';
-        }
         setBlocks(data);
     }).catch((err) => {
         console.log(err);
     });
-
-    setBlocks([{
-        id: '',
-        pageId,
-        tag: 'p',
-        html: 'start here',
-        position: 0,
-        src: null,
-        href: null
-    }])
-
 }
 
+// DELETE /api/block/
 function deleteBlock(blockId: string) {
 
     fetch(`/api/block/`, {
@@ -108,6 +101,17 @@ function deleteBlock(blockId: string) {
     .catch((err) => console.log(err));
 }
 
+function isAnEmptyBlock(block: BlockStructure): boolean {
+
+    return (
+        block.tag === 'p'
+        && block.html === ''
+        && block.src === null
+        && block.href === null
+    )
+}
+
+// the Page component
 export function Page(props: PageProps): JSX.Element {
 
     const [blocks, setBlocks] = React.useState<BlockStructure[]>([]);
@@ -126,19 +130,38 @@ export function Page(props: PageProps): JSX.Element {
             props.updatePageName(props.pageId, pageNameRef.current);
         }
     }
+    const stylePageName = {
+        textAlign: 'left',
+        fontSize: '32px',
+        fontWeight: 'bold',
+        margin: '25px 25px'
+    }
+
+    if (props.pageId.length < 32) {
+        return(
+            <div>click on a page to begin</div>
+        );
+    }
+
+    if (blocks.length === 1 && isAnEmptyBlock(blocks[blocks.length - 1])) {
+        const blocksCopy = blocks;
+        blocksCopy[blocksCopy.length - 1].html = 'click here to begin';
+        setBlocks(blocksCopy);
+    }
 
     return(
         <div>
-            <button onClick={() => props.deletePage(props.pageId)}>delete this page</button>
-
             <ContentEditable
                 html={props.pageName}
                 tagName='p'
                 onChange={handlePageNameChange}
                 onBlur={() => {}}
+                style={stylePageName}
             ></ContentEditable>
 
-            {blocks.map(block => (
+            <button onClick={() => props.deletePage(props.pageId)}>delete this page</button>
+
+            {blocks.map((block, index) => (
                 <Block 
                     id={block.id}
                     pageId={props.pageId}
@@ -150,6 +173,10 @@ export function Page(props: PageProps): JSX.Element {
                     insertBlock={insertAnEmptyBlock}
                     updateBlock={updateBlock}
                     deleteBlock={deleteBlock}
+                    fetchAgain={() => {
+                        fetchAllBlocks(props.pageId, setBlocks);
+                    }}
+                    haveFocus={index === blocks.length - 1}
                 />)
             )}
         </div>
