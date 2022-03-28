@@ -10,8 +10,8 @@ function App(): JSX.Element {
   return (
     <Routes>
          <Route path="/" element={<Signup/>}/>
-         <Route path='/signIn' element={<SignIn />}/>
-         <Route path="/home" element={<Home name=''/>}/>
+         <Route path='/signIn' element={<SignIn/>}/>
+         <Route path="/home" element={<Home/>}/>
          <Route path='/settings' element={<Settings/>}/>
     </Routes>
   );
