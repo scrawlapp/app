@@ -10,6 +10,7 @@ function SignInForm(): JSX.Element{
    const navigate = useNavigate();
 
    function onSubmit(data: any){
+      localStorage.setItem('email', data.email);
       fetch('/api/user/login', {
          method: 'POST',
          headers: {
@@ -26,7 +27,8 @@ function SignInForm(): JSX.Element{
       })
       .then((data) => {
          console.log(data);
-         localStorage.setItem('name', data.firstName);
+         localStorage.setItem('firstName', data.firstName);
+         localStorage.setItem('lastName', data.lastName);
          if (statusCode){
             navigate(`/home`);
          }

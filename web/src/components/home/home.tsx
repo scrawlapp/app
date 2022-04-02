@@ -109,7 +109,7 @@ export function Home(): JSX.Element {
         <div className="grid-container" >
 
             <div className='userName'>
-                <strong>Hi {localStorage.getItem('name') || ''}</strong>
+                <strong>Hi {localStorage.getItem('firstName') || ''}</strong>
             </div>
 
             <div className='navBar'>
