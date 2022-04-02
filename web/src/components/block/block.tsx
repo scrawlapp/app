@@ -23,9 +23,6 @@ export interface BlockProps {
 export function Block(props: BlockProps): JSX.Element {
 
     const blockRef = React.useRef(props.html);
-    const [pageId, setPageId] = React.useState<string>(props.pageId);
-    const [position, setPosition] = React.useState<number>(props.position);
-    const [id, setId] = React.useState<string>(props.id);
     const ref = React.useRef<HTMLElement>(null);
 
     function handleChange(event: ContentEditableEvent) {
@@ -52,12 +49,12 @@ export function Block(props: BlockProps): JSX.Element {
         if (event.key === 'Enter') {
             event.preventDefault();
             handleBlur();
-            props.insertBlock(pageId, position + 1);
+            props.insertBlock(props.pageId, props.position + 1);
             props.fetchAgain();
         }
 
         if (event.key === 'Backspace' && (blockRef.current === '' || blockRef.current === '<br>')) {
-            props.deleteBlock(id);
+            props.deleteBlock(props.id);
         }
     }
 
