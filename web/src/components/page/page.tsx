@@ -80,6 +80,9 @@ function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetState
             fetchAllBlocks(pageId, setBlocks);
             return;
         }
+        data.sort((a: BlockStructure, b: BlockStructure): number => {
+            return a.position - b.position;
+        });
         setBlocks(data);
     }).catch((err) => {
         console.log(err);
@@ -116,6 +119,7 @@ export function Page(props: PageProps): JSX.Element {
 
     const [blocks, setBlocks] = React.useState<BlockStructure[]>([]);
     const pageNameRef = React.useRef(props.pageName);
+    const [deletePageCue, deletePageCueCaller] = React.useState<number>(0);
 
     // we fetch all blocks only when pageId changes
     // or the Page component is mounted onto the DOM
@@ -123,13 +127,22 @@ export function Page(props: PageProps): JSX.Element {
         fetchAllBlocks(props.pageId, setBlocks);
     }, [props.pageId]);
 
+    React.useEffect(() => {
+        setBlocks([]);
+    }, [deletePageCue]);
+
     function handlePageNameChange(event: ContentEditableEvent) {
 
         if (event !== null) {
             pageNameRef.current = event.target.value;
-            props.updatePageName(props.pageId, pageNameRef.current);
         }
     }
+
+    function handlePageNameBlur() {
+
+        props.updatePageName(props.pageId, pageNameRef.current);
+    }
+
     const stylePageName = {
         textAlign: 'left',
         fontSize: '32px',
@@ -137,7 +150,7 @@ export function Page(props: PageProps): JSX.Element {
         margin: '25px 25px'
     }
 
-    if (props.pageId.length < 32) {
+    if (blocks.length === 0) {
         return(
             <div>click on a page to begin</div>
         );
@@ -155,11 +168,14 @@ export function Page(props: PageProps): JSX.Element {
                 html={props.pageName}
                 tagName='p'
                 onChange={handlePageNameChange}
-                onBlur={() => {}}
+                onBlur={handlePageNameBlur}
                 style={stylePageName}
             ></ContentEditable>
 
-            <button onClick={() => props.deletePage(props.pageId)}>delete this page</button>
+            <button onClick={() => {
+                props.deletePage(props.pageId);
+                deletePageCueCaller(deletePageCue + 1);
+            }}>delete this page</button>
 
             {blocks.map((block, index) => (
                 <Block 
