@@ -71,7 +71,14 @@ export function Home(): JSX.Element {
             body: JSON.stringify({
                 pageId, name
             })
-        }).then((response) => console.log(response))
+        }).then((_) => {
+            setSelectedPage({
+                id: pageId,
+                name: name,
+                owner: selectedPage.owner
+            });
+            pageFetchCueCaller(pageFetchCue + 1);
+        })
         .catch((err) => console.log(err));
     }
 
