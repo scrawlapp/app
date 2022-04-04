@@ -27,3 +27,11 @@ export interface Block {
     href: string | null,
     src: string | null
 }
+
+// Structure of what the user is capable of doing with a page in the application
+export interface Ability {
+
+    pageId: string,
+    userId: string,
+    ability: string
+}
