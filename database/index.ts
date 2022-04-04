@@ -72,3 +72,4 @@ export async function queryWithTransaction(prepared: string,
 export * from './user';
 export * from './page';
 export * from './block';
+export * from './ability';
