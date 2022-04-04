@@ -6,6 +6,9 @@ import express from 'express';
 import { setupDatabase } from './database';
 import { setupCache } from './cache';
 import cookieParser from 'cookie-parser';
+import { attachEvents } from './event/socket';
+import { Server } from 'socket.io';
+import http from 'http';
 import api from './routes';
 
 setupDatabase(process.env.DATABASE_URL || '');
@@ -18,4 +21,14 @@ app.use('/api', api);
 
 // Serve the React App
 app.use(express.static('web/build')); 
-app.listen(process.env.PORT, () => console.log("Server is up!"));
+
+// Prepare HTTP server
+const server = http.createServer(app);
+
+// Create the socket.io instance
+const socketio = new Server(server);
+
+// Attach events to this instance
+attachEvents(socketio);
+
+server.listen(process.env.PORT, () => console.log("Server is up!"));
