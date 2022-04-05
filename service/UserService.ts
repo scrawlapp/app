@@ -50,7 +50,7 @@ export class UserService {
         try {
 
             const user = await database.getUser(email);
-            if (user.id === '') {
+            if (user === undefined || user.id === undefined || user.id === '') {
                 throw new errors.ErrInvalidEmailPassword;
             }
 
