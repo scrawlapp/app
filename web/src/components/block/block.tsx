@@ -1,5 +1,6 @@
 import { ContentEditableEvent } from 'react-contenteditable';
 import ContentEditable from './contentEditable';
+import { io } from "socket.io-client";
 import React from 'react';
 
 // describe how props look like for Block
@@ -19,17 +20,29 @@ export interface BlockProps {
     haveFocus: boolean
 }
 
+const socket = io();
+
 // the core component that renders a contentEditable block.
 export function Block(props: BlockProps): JSX.Element {
 
     const blockRef = React.useRef(props.html);
     const ref = React.useRef<HTMLElement>(null);
+    const [updateBlock, updateBlockCue] = React.useState<number>(0);
+
+    socket.on('page diff', (update) => {
+        blockRef.current = update.newValue;
+    });
 
     function handleChange(event: ContentEditableEvent) {
 
         if (event !== null) {
             blockRef.current = event.target.value;
             console.log(blockRef.current);
+            socket.emit('page diff', {
+                pageId: props.pageId,
+                blockId: props.id,
+                newValue: blockRef.current
+            })
         }
     }
     
