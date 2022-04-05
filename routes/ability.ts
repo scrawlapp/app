@@ -29,7 +29,7 @@ abilityRouter.get('/pages/', async (req: express.Request, res: express.Response)
  * @apiGroup Ability
  * @apiName Insert an ability
  * @apiBody {string} pageId Mandatory
- * @apiBody {string} userId Mandatory
+ * @apiBody {string} email Mandatory
  * @apiBody {string} ability Mandatory
  * @apiError (ServerError) {json} 500 Need to check server logs
  * @apiVersion 0.1.0
@@ -38,7 +38,8 @@ abilityRouter.get('/pages/', async (req: express.Request, res: express.Response)
 abilityRouter.post('/', async (req: express.Request, res: express.Response) => {
 
     try {
-        await abilityService.insertAbility(req.body);
+        const { pageId, email, ability } = req.body;
+        await abilityService.insertAbility(pageId, email, ability);
         res.status(201).json({ message: messages.MESSAGE_201 });
     } catch (err) {
         console.log(err);
