@@ -1,16 +1,16 @@
 import { Server } from 'socket.io';
 
-interface PageDiff {
+interface PageUpdate {
 
     pageId: string,
     blockId: string,
-    diff: string
+    newValue: string
 }
 
 export function attachEvents(io: Server) {
 
     io.on('connection', (socket) => {
-        socket.on('page diff', (diff: PageDiff) => {
+        socket.on('page diff', (diff: PageUpdate) => {
             io.emit('page diff', diff);
         });
     })
