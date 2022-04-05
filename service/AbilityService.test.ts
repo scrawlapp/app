@@ -56,11 +56,11 @@ afterAll(async () => {
 test('CRUD from the AbilityService', async () => {
     
     try {
-        await abilityService.insertAbility({
-            pageId: page.id,
-            userId: secondUser.id,
-            ability: 'editor'
-        });
+        await abilityService.insertAbility(
+            page.id,
+            secondUser.email,
+            'editor'
+        );
 
         const sharedPages = await abilityService.getAllSharedPages(secondUser.id);
         expect(sharedPages.length).toBe(1);
