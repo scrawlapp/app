@@ -27,8 +27,13 @@ export class AbilityService {
         await database.deleteAbility(pageId, userId);
     }
 
-    public async insertAbility(ability: entity.Ability) {
+    public async insertAbility(pageId: string, email: string, ability: string) {
 
-        await database.insertAbility(ability);
+        const user = await database.getUser(email);
+        await database.insertAbility({
+            pageId,
+            userId: user.id,
+            ability
+        });
     }
 }
