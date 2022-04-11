@@ -16,7 +16,7 @@ body {
 .settingsContainer {
    display: grid;
    grid-template-columns: 4.8fr 10fr;
-   grid-template-rows: 5.5fr 29fr;
+   grid-template-rows: 4.8fr 29fr;
    gap: 25px 25px;
    width: 100%;
    height: calc(100vh - 10px);;
@@ -29,8 +29,8 @@ body {
    padding: 2px 10px;
    padding-right: 0;
    margin-left: 67px;
-   margin-top: 31px;
-   font-size: 48px;
+   margin-top: 36px;
+   font-size: 35px;
 }
 
 .settings {
@@ -55,9 +55,9 @@ body {
    border: 0;
    width: 100%;
    text-align: left;
-   padding: 23px 18px;
-   padding-left: 40px;
-   font-size: 35px;
+   padding: 28px 18px;
+   padding-left: 45px;
+   font-size: 29px;
    background-color: #f1f1f1;
    border-radius: 10px;
    font-weight: bold;
@@ -70,11 +70,26 @@ body {
 
 .settingName {
    text-align: center;
-   font-size: 40px;
+   font-size: 38px;
    font-weight: bold;
    margin-top: 50px;
 }
 
-#sForm {
+.sForm {
    margin-left: auto;
+}
+
+.icon {
+   background-color: #f1f1f1;
+   margin-left: 1150px;
+   height: 66px;
+   width: 66px;
+   border: 1px solid #d1d9e6;
+   border-radius: 100%;
+   box-shadow: 7px 7px 12px #b8b9be, -7px -7px 12px white;
+}
+
+.icon:hover {
+   scale: 1.07;
+   box-shadow: 9px 9px 14px #b8b9be;
 }
