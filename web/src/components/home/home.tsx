@@ -3,6 +3,7 @@ import { Page } from '../page/page';
 import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from "react-router-dom";
 
 // describe how the Page looks like in memory
 export interface PageStructure {
@@ -36,6 +37,8 @@ export function Home(): JSX.Element {
     });
     const [newPageName, setNewPageName] = React.useState<string>('');
     const [pageFetchCue, pageFetchCueCaller] = React.useState<number>(0);
+
+    const navigate = useNavigate();
 
     // fetch only once, when the component is mounted onto the DOM
     // and when pageFetchCue changes.
@@ -104,6 +107,27 @@ export function Home(): JSX.Element {
         .catch((err) => console.log(err));
     }
 
+    function logOut() {
+        fetch('/api/user/logout', {
+            method: 'POST',
+            headers: {
+               Accept: 'application/json',
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+         })
+         .then(res => {
+            if(res.status !== 200){
+               return res.json()
+            }
+            else {
+                navigate(`/`);
+            }
+         })
+         .then((data) => {
+            console.log(data);
+         })
+    }
     
     return (
         <div className="grid-container" >
@@ -114,8 +138,8 @@ export function Home(): JSX.Element {
 
             <div className='navBar'>
                 <button className='iconButton'><FontAwesomeIcon className="icons" icon={faUserGroup} /></button>
-                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faGear} /></button>
-                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faRightFromBracket} /></button>
+                <button className='iconButton' onClick={() => navigate(`/settings`)}><FontAwesomeIcon className="icons" icon={faGear} /></button>
+                <button className='iconButton' onClick={logOut}><FontAwesomeIcon className="icons" icon={faRightFromBracket} /></button>
                 <button className='iconButton'><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
             </div>
 
