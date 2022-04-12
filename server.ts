@@ -31,4 +31,8 @@ const socketio = new Server(server);
 // Attach events to this instance
 attachEvents(socketio);
 
-server.listen(process.env.PORT, () => console.log("Server is up!"));
+if (process.env.NODE_ENV !== 'test') {
+    server.listen(process.env.PORT, () => console.log("Server is up!"));
+}
+
+export { server };
