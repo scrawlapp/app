@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/server.js",
-    "test": "npx jest --coverage --forceExit",
+    "test": "export NODE_ENV=test && npx jest --coverage --forceExit",
     "heroku-postbuild": "npx tsc && cd web && npm install && npm run build",
     "build-dev": "npx tsc && cd web && npm run build",
     "pretty": "npx prettier --write .",
