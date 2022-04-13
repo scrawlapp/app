@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.title{
+  position: absolute;
+width: 568.32px;
+height: 333.16px;
+left: 617.32px;
+top: 0px;
+
+font-family: 'Pacifico', cursive;
+font-style: normal;
+font-weight: 400;
+font-size: 78.3896px;
+line-height: 138px;
+
+color: #000000;
+
+}
+
+.tag{
+  position: absolute;
+width: 1460.01px;
+height: 107.79px;
+left: 30px;
+top: 117.58px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 48.9935px;
+line-height: 59px;
+text-align: center;
+
+color: rgba(42, 82, 190, 0.85);
+}
+
+.desc{
+  position: absolute;
+width: 1250px;
+height: 300px;
+left: 150px;
+top: 200px;
+
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: normal;
+font-size: 39.1948px;
+line-height: 47px;
+text-align: center;
+
+color: #000000;
+
+}
+
+.points{
+  position: absolute;
+width: 400px;
+height: 400px;
+left: 300px;
+top: 250px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: bold;
+font-size: 32px;
+line-height: 42px;
+
+color: #000000;
+
+position: absolute;
+width: 500px;
+height: 200px;
+left: 470.34px;
+top: 340px;
+
+background: #E8F2FF;
+border-radius: 1rem;
+padding: 1.4rem 3.8rem;
+}
+
+.ghl{
+  position: absolute;
+width: 587.92px;
+height: 127.38px;
+left: 274.36px;
+top: 685.91px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 47px;
+text-align: center;
+
+color: #FFFFFF;
+
+position: absolute;
+width: 250px;
+height: 120px;
+left: 450px;
+top: 570px;
+
+background: rgba(42, 82, 190, 0.85);
+border-radius: 24.4968px;
+padding: 1.1rem;
+}
+
+.gs{
+  position: absolute;
+width: 587.92px;
+height: 127.38px;
+left: 793.69px;
+top: 715.31px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 27px;
+line-height: 47px;
+
+color: #FFFFFF;
+
+position: absolute;
+width: 250px;
+height: 120px;
+left: 740px;
+top: 570px;
+
+background: rgba(42, 82, 190, 0.85);
+border-radius: 24.4968px;
+padding: 3.4rem 2.7rem;
+}
