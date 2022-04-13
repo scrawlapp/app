@@ -52,7 +52,7 @@ abilityRouter.post('/', async (req: express.Request, res: express.Response) => {
  * @apiGroup Ability
  * @apiName Delete an ability
  * @apiBody {string} pageId Mandatory
- * @apiBody {string} userIdToDelete Mandatory
+ * @apiBody {string} email Mandatory
  * @apiError (ServerError) {json} 500 Need to check server logs
  * @apiVersion 0.1.0
  * @apiDescription User needs to be authenticated to hit this endpoint.
@@ -60,8 +60,8 @@ abilityRouter.post('/', async (req: express.Request, res: express.Response) => {
 abilityRouter.delete('/', async (req: express.Request, res: express.Response) => {
 
     try {
-        const { pageId, userIdToDelete } = req.body;
-        await abilityService.deleteAbility(pageId, userIdToDelete);
+        const { pageId, email } = req.body;
+        await abilityService.deleteAbility(pageId, email);
         res.status(200).json({ message: messages.MESSAGE_200 });
     } catch (err) {
         console.log(err);
