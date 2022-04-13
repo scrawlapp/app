@@ -22,9 +22,10 @@ export class AbilityService {
         return sharedPages;
     }
 
-    public async deleteAbility(pageId: string, userId: string) {
+    public async deleteAbility(pageId: string, email: string) {
 
-        await database.deleteAbility(pageId, userId);
+        const user = await database.getUser(email);
+        await database.deleteAbility(pageId, user.id);
     }
 
     public async insertAbility(pageId: string, email: string, ability: string) {

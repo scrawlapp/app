@@ -65,7 +65,7 @@ test('CRUD from the AbilityService', async () => {
         const sharedPages = await abilityService.getAllSharedPages(secondUser.id);
         expect(sharedPages.length).toBe(1);
         expect(sharedPages[0].id).toBe(page.id);
-        await abilityService.deleteAbility(page.id, secondUser.id);
+        await abilityService.deleteAbility(page.id, secondUser.email);
     } catch (err) {
         throw err;
     }
