@@ -40,7 +40,7 @@ export class ErrInvalidJWT extends Error {
     constructor() {
 
         super('Token blacklisted.');
-        Object.setPrototypeOf(this,ErrInvalidEmailPassword.prototype);
+        Object.setPrototypeOf(this,ErrInvalidJWT.prototype);
     }
 }
 
@@ -49,7 +49,7 @@ export class ErrUpdateUserField extends Error {
     constructor() {
 
         super('Could not update field.');
-        Object.setPrototypeOf(this,ErrInvalidEmailPassword.prototype);
+        Object.setPrototypeOf(this,ErrUpdateUserField.prototype);
     }
 }
 
