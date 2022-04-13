@@ -52,6 +52,7 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "apidoc": "^0.50.4",
+    "cypress": "^9.5.4",
     "eslint": "^8.8.0",
     "jest": "^27.4.7",
     "prettier": "^2.5.1",

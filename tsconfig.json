@@ -18,5 +18,5 @@
         "strictPropertyInitialization": false,
         "emitDecoratorMetadata": true
     },
-    "exclude": ["node_modules", "build", "web", "coverage", "docs"]
+    "exclude": ["node_modules", "build", "web", "coverage", "docs", "cypress"]
 }
