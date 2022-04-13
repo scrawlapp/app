@@ -147,6 +147,10 @@ export class UserService {
                 throw new errors.ErrUpdateUserField;
             }
 
+            if (!this.isValidPassword(newPassword)) {
+                throw new errors.ErrInvalidPasswordFormat;
+            }
+
             newPassword = await bcrypt.hash(newPassword, 10);
             await database.updatePassword(user.id, newPassword);
         } catch (err) {
