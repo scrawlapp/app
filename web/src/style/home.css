@@ -110,3 +110,41 @@ body {
    margin: 25px 25px;
    font-size: 22px;
 }
+
+.miscalleneous{
+   display: inline-block;
+   position: absolute;
+   right: 40px;
+   top: 72px;
+   z-index: 1;
+}
+
+.miscalleneousButton {
+   outline: 0;
+   display: block;
+   width: 220px;
+   margin-left: 55px;
+   margin-top: 26px;
+   padding: 10px 15px;
+   font-size: 25px;
+   color: white;
+   background-color: #2A52BE;
+   opacity: 79%;
+   border: 2px solid rgba(42,82,190,1);
+   border-radius: 10px;
+   box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
+}
+
+.miscalleneousButton:hover {
+   scale: 1.07;
+   box-shadow: 8px 8px 14px #172c66;
+}
+.addPageInput {
+   margin-left: 18px;
+}
+
+.addPageButton {
+   width: 191px;
+   font-size: 30px;
+   margin-left: 18px;
+}

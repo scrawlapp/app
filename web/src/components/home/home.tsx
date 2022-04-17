@@ -1,5 +1,6 @@
 import React from 'react';
 import { Page } from '../page/page';
+import PopUpForm from '../popUpWindow/popUpForm';
 import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
@@ -39,6 +40,12 @@ export function Home(): JSX.Element {
     const [pageFetchCue, pageFetchCueCaller] = React.useState<number>(0);
 
     const navigate = useNavigate();
+    const [displayStyle, changeDisplay] = React.useState("none");
+    const [display, setDisplay] = React.useState("none");
+
+    let miscalleneousStyle = {
+        display: displayStyle
+    }
 
     // fetch only once, when the component is mounted onto the DOM
     // and when pageFetchCue changes.
@@ -46,9 +53,9 @@ export function Home(): JSX.Element {
         fetchAllPages(setPagesList);
     }, [pageFetchCue]);
 
+
     // DELETE /api/page/
     function deletePage(pageId: string) {
-
         fetch('/api/page/', {
             method: 'DELETE',
             headers: {
@@ -128,7 +135,21 @@ export function Home(): JSX.Element {
             console.log(data);
          })
     }
-    
+
+    function showMiscalleneous() {
+        if(displayStyle == "none"){
+            changeDisplay("inline-block");
+        }
+        else if (displayStyle == "inline-block"){
+            changeDisplay("none");
+        }
+    }
+
+    function share () {
+        setDisplay("inline-block");
+    }
+
+
     return (
         <div className="grid-container" >
 
@@ -137,20 +158,24 @@ export function Home(): JSX.Element {
             </div>
 
             <div className='navBar'>
-                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faUserGroup} /></button>
+                <button className='iconButton' onClick={share}><FontAwesomeIcon className="icons" icon={faUserGroup} /></button>
                 <button className='iconButton' onClick={() => navigate(`/settings`)}><FontAwesomeIcon className="icons" icon={faGear} /></button>
                 <button className='iconButton' onClick={logOut}><FontAwesomeIcon className="icons" icon={faRightFromBracket} /></button>
-                <button className='iconButton'><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
+                <button className='iconButton' onClick={showMiscalleneous}><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
+            </div>
+
+            <div className="miscalleneous" style={miscalleneousStyle}>
+                <button className='miscalleneousButton'>Delete Account</button>
             </div>
 
             <div className='sideNavBar'>
                 {pagesList.map((page) => (
                     <button className='pageList' onClick={() => setSelectedPage(page)}>{page.name}</button>
-                ))}
-                <input type='text' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                ))}<br/><br/>
+                <input className='formInput addPageInput' type='text' placeholder='page name' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setNewPageName(event.target.value);
-                }}></input>
-                <button onClick={() => insertPage(newPageName)}>insert a new page</button>
+                }}></input><br/>
+                <button className='formButton addPageButton' onClick={() => insertPage(newPageName)}>Add Page</button>
             </div>
 
             <div className='page'>
@@ -161,6 +186,7 @@ export function Home(): JSX.Element {
                     deletePage={deletePage}
                 />
             </div>
+            <PopUpForm display={display} changeDisplay={setDisplay} pageId={selectedPage.id}/>
 
         </div>
     );
