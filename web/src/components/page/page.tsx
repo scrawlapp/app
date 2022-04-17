@@ -152,7 +152,7 @@ export function Page(props: PageProps): JSX.Element {
 
     if (blocks.length === 0) {
         return(
-            <div>click on a page to begin</div>
+            <h4>click on a page to begin</h4>
         );
     }
 
