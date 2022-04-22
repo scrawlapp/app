@@ -4,7 +4,7 @@ import Signup from "../signUp/signUp";
 import SignIn from "../signIn/signIn";
 import {Home} from "../home/home";
 import Settings from "../settings/settings";
-import {LandingPage} from "../landingPage/landingPage";
+import LandingPage from "../landingPage/landingPage";
 
 function App(): JSX.Element {
   
