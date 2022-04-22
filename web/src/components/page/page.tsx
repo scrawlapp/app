@@ -9,6 +9,8 @@ export interface PageProps {
     pageName: string,
     updatePageName: (pageId: string, name: string) => void,
     deletePage: (pageId: string) => void
+    shared: boolean,
+    ability: string
 }
 
 // describe how the block looks like during network calls
@@ -133,6 +135,9 @@ export function Page(props: PageProps): JSX.Element {
 
     function handlePageNameChange(event: ContentEditableEvent) {
 
+        if (props.shared && props.ability !== 'editor') {
+            return;
+        }
         if (event !== null) {
             pageNameRef.current = event.target.value;
         }
@@ -140,6 +145,9 @@ export function Page(props: PageProps): JSX.Element {
 
     function handlePageNameBlur() {
 
+        if (props.shared && props.ability !== 'editor') {
+            return;
+        }
         props.updatePageName(props.pageId, pageNameRef.current);
     }
 
@@ -173,6 +181,9 @@ export function Page(props: PageProps): JSX.Element {
             ></ContentEditable>
 
             <button onClick={() => {
+                if (props.shared && props.ability !== 'editor') {
+                    return;
+                }
                 props.deletePage(props.pageId);
                 deletePageCueCaller(deletePageCue + 1);
             }}>delete this page</button>
@@ -193,6 +204,7 @@ export function Page(props: PageProps): JSX.Element {
                         fetchAllBlocks(props.pageId, setBlocks);
                     }}
                     haveFocus={index === blocks.length - 1}
+                    canEdit={!props.shared || (props.shared && props.ability === 'editor')}
                 />)
             )}
         </div>

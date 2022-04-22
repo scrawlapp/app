@@ -3,7 +3,7 @@ import { Page } from '../page/page';
 import PopUpForm from '../popUpWindow/popUpForm';
 import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faUserGroup, faGear, faRightFromBracket, faEllipsis, faLariSign } from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from "react-router-dom";
 
 // describe how the Page looks like in memory
@@ -11,6 +11,19 @@ export interface PageStructure {
     id: string,
     owner: string,
     name: string
+}
+
+export interface SharedPageStructure {
+    id: string,
+    name: string,
+    ability: string
+}
+
+export interface SelectedPageStructure {
+    id: string,
+    name: string,
+    shared: boolean,
+    ability: string
 }
 
 // GET /api/page/all/
@@ -29,13 +42,30 @@ function fetchAllPages(setPagesList: React.Dispatch<React.SetStateAction<PageStr
     .catch((err) => console.log(err));
 }
 
+// GET /api/ability/pages/
+// takes in the state updater function to add data
+function fetchAllSharedPages(setSharedPagesList: React.Dispatch<React.SetStateAction<SharedPageStructure[]>>) {
+
+    fetch('/api/ability/pages', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => setSharedPagesList(data))
+    .catch((err) => console.log(err));
+}
+
 // the Home component
 export function Home(): JSX.Element {
 
     const [pagesList, setPagesList] = React.useState<PageStructure[]>([]);
-    const [selectedPage, setSelectedPage] = React.useState<PageStructure>({
-        id: '', name: '', owner: ''
+    const [selectedPage, setSelectedPage] = React.useState<SelectedPageStructure>({
+        id: '', name: '', shared: false, ability: '',
     });
+    const [sharedPagesList, setSharedPagesList] = React.useState<SharedPageStructure[]>([]);
     const [newPageName, setNewPageName] = React.useState<string>('');
     const [pageFetchCue, pageFetchCueCaller] = React.useState<number>(0);
 
@@ -51,6 +81,7 @@ export function Home(): JSX.Element {
     // and when pageFetchCue changes.
     React.useEffect(() => {
         fetchAllPages(setPagesList);
+        fetchAllSharedPages(setSharedPagesList);
     }, [pageFetchCue]);
 
 
@@ -82,10 +113,13 @@ export function Home(): JSX.Element {
                 pageId, name
             })
         }).then((_) => {
-            setSelectedPage({
-                id: pageId,
-                name: name,
-                owner: selectedPage.owner
+            setSelectedPage((oldPage) => {
+                return {
+                    id: pageId,
+                    name: name,
+                    shared: oldPage.shared,
+                    ability: oldPage.ability
+                }
             });
             pageFetchCueCaller(pageFetchCue + 1);
         })
@@ -170,8 +204,22 @@ export function Home(): JSX.Element {
 
             <div className='sideNavBar'>
                 {pagesList.map((page) => (
-                    <button className='pageList' onClick={() => setSelectedPage(page)}>{page.name}</button>
+                    <button className='pageList' onClick={() => setSelectedPage({
+                        id: page.id,
+                        name: page.name,
+                        shared: false,
+                        ability: ''
+                    })}>{page.name}</button>
                 ))}<br/><br/>
+                <hr/>
+                {sharedPagesList.map((page) => (
+                    <button className='pageList' onClick={() => setSelectedPage({
+                        id: page.id,
+                        name: page.name,
+                        shared: true,
+                        ability: page.ability
+                    })}>{page.name}</button>
+                ))}
                 <input className='formInput addPageInput' type='text' placeholder='page name' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setNewPageName(event.target.value);
                 }}></input><br/>
@@ -182,6 +230,8 @@ export function Home(): JSX.Element {
                 <Page
                     pageId={selectedPage.id}
                     pageName={selectedPage.name}
+                    shared={selectedPage.shared}
+                    ability={selectedPage.ability}
                     updatePageName={updatePageName}
                     deletePage={deletePage}
                 />
