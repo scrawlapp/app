@@ -13,11 +13,12 @@ export interface BlockProps {
     position: number,
     href: string | null,
     src: string | null,
-    insertBlock: (pageId: string, position: number) => void
-    updateBlock: (block: any) => void
-    deleteBlock: (blockId: string) => void
-    fetchAgain: () => void
-    haveFocus: boolean
+    insertBlock: (pageId: string, position: number) => void,
+    updateBlock: (block: any) => void,
+    deleteBlock: (blockId: string) => void,
+    fetchAgain: () => void,
+    haveFocus: boolean,
+    canEdit: boolean
 }
 
 const socket = io();
@@ -30,7 +31,24 @@ export function Block(props: BlockProps): JSX.Element {
     const [updateBlock, updateBlockCue] = React.useState<number>(0);
 
     socket.on('page diff', (update) => {
-        blockRef.current = update.newValue;
+        console.log('received update')
+        if (update.blockId === props.id) {
+            console.log('updating');
+            blockRef.current = update.newValue;
+            if (ref.current) {
+                ref.current.innerHTML = blockRef.current;
+                const range = document.createRange();
+                const sel = window.getSelection();
+                range.selectNodeContents(ref.current);
+                range.collapse(false);
+                if (sel !== null) {
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+                ref.current.focus();
+                range.detach(); 
+            }
+        }
     });
 
     function handleChange(event: ContentEditableEvent) {
@@ -83,6 +101,7 @@ export function Block(props: BlockProps): JSX.Element {
             tagName={props.tag}
             onKeyDown={handleKeyDown}
             innerRef={ref}
+            disabled={!props.canEdit}
         />
     );
 }
