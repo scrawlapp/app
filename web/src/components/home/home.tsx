@@ -26,6 +26,8 @@ export interface SelectedPageStructure {
     ability: string
 }
 
+const { REACT_APP_MOOD_ADDRESS } = process.env;
+
 // GET /api/page/all/
 // takes in the state updater function to add data
 function fetchAllPages(setPagesList: React.Dispatch<React.SetStateAction<PageStructure[]>>) {
@@ -56,6 +58,37 @@ function fetchAllSharedPages(setSharedPagesList: React.Dispatch<React.SetStateAc
     .then((response) => response.json())
     .then((data) => setSharedPagesList(data))
     .catch((err) => console.log(err));
+}
+
+async function getMood(pageId: string) {
+    try {
+        const response = await fetch(`/api/block/all/${pageId}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await response.json();
+        let text = '';
+        for (let i = 0; i < data.length; ++i) {
+            text += data[i].html;
+        }
+        const moodResponse = await fetch(`${REACT_APP_MOOD_ADDRESS}/api`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "userInput": text
+            })
+        });
+        const moodData = await moodResponse.json();
+        console.log(moodData);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 // the Home component
@@ -170,6 +203,27 @@ export function Home(): JSX.Element {
          })
     }
 
+    function deleteAccount() {
+
+        fetch('/api/user', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            if(res.status !== 200){
+               return res.json()
+            }
+            else {
+                navigate(`/`);
+            }
+         })
+         .then((data) => {
+            console.log(data);
+         });
+    }
+
     function showMiscalleneous() {
         if(displayStyle == "none"){
             changeDisplay("inline-block");
@@ -199,7 +253,8 @@ export function Home(): JSX.Element {
             </div>
 
             <div className="miscalleneous" style={miscalleneousStyle}>
-                <button className='miscalleneousButton'>Delete Account</button>
+                <button className='miscalleneousButton' onClick={deleteAccount}>Delete Account</button>
+                <button className='miscalleneousButton' onClick={async () => { await getMood(selectedPage.id) }}>Get Mood</button>
             </div>
 
             <div className='sideNavBar'>
