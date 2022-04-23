@@ -7,7 +7,7 @@
     "start": "node build/server.js",
     "test": "export NODE_ENV=test && npx jest --coverage --forceExit",
     "heroku-postbuild": "npx tsc && cd web && npm install && npm run build",
-    "build-dev": "npx tsc && cd web && npm run build",
+    "build-dev": "export REACT_APP_MOOD_ADDRESS=http://localhost:8081 && npx tsc && cd web && npm run build",
     "pretty": "npx prettier --write .",
     "lint": "npx eslint . --fix",
     "quality": "npm run lint && npm run pretty",
