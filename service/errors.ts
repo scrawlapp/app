@@ -61,3 +61,12 @@ export class ErrPageNameBlank extends Error {
         Object.setPrototypeOf(this,ErrPageNameBlank.prototype);
     }
 }
+
+export class ErrPageDoesNotExist extends Error {
+
+    constructor() {
+
+        super('Page does not exist.');
+        Object.setPrototypeOf(this,ErrPageDoesNotExist.prototype);
+    }
+}

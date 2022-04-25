@@ -3,7 +3,7 @@ dotenv.config();
 
 import { deleteUser, insertUser, setupDatabase, terminatePool } from '.';
 import * as entity from '../entity/';
-import { deletePage, getPages, insertPage, updatePageName } from './page';
+import { deletePage, getPages, getSinglePage, insertPage, updatePageName } from './page';
 
 setupDatabase(process.env.DATABASE_URL || '');
 
@@ -107,6 +107,23 @@ test('update page name', async () => {
         if (result[0].name !== page.name) {
             throw new Error('page update name mismatch');
         }
+        await deletePage(page.id, page.owner);
+    } catch (err) {
+        throw err;
+    }
+});
+
+test('get a single page', async () => {
+
+    try {
+        const page: entity.Page = {
+            id: '',
+            owner: user.id,
+            name: 'see if exists',
+        }
+        await insertPage(page);
+        const pageFromDB = await getSinglePage(page.id);
+        expect(page.id).toEqual(pageFromDB.id);
         await deletePage(page.id, page.owner);
     } catch (err) {
         throw err;
