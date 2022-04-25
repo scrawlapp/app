@@ -1,5 +1,6 @@
 import * as entity from '../entity';
 import * as database from '../database';
+import { errors } from '.';
 
 export class AbilityService {
 
@@ -31,6 +32,10 @@ export class AbilityService {
     public async insertAbility(pageId: string, email: string, ability: string) {
 
         const user = await database.getUser(email);
+        const page = await database.getSinglePage(pageId);
+        if (page.id === '') {
+            throw new errors.ErrPageDoesNotExist;
+        }
         await database.insertAbility({
             pageId,
             userId: user.id,

@@ -17,8 +17,8 @@ create table if not exists pages(
 -- "ability" represents what the user is capable of doing with a page.
 -- common values could be "editor", "viewer".
 create table if not exists abilities(
-    "pageId" uuid references pages(id),
-    "userId" uuid references users(id),
+    "pageId" uuid references pages(id) on delete cascade,
+    "userId" uuid references users(id) on delete cascade,
     ability varchar not null 
 );
 

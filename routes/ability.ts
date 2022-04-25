@@ -42,6 +42,10 @@ abilityRouter.post('/', async (req: express.Request, res: express.Response) => {
         await abilityService.insertAbility(pageId, email, ability);
         res.status(201).json({ message: messages.MESSAGE_201 });
     } catch (err) {
+        if (err instanceof errors.ErrPageDoesNotExist) {
+            res.status(400).json({ message: err.message });
+            return;
+        }
         console.log(err);
         res.status(500).json({ message: messages.MESSAGE_500 });
     }

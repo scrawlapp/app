@@ -7,6 +7,7 @@ const statementSelectPages = "select id, name from pages where owner = $1";
 const statementInsertPage = "insert into pages (id, name, owner) values ($1, $2, $3);"
 const statemenetUpdatePageName = "update pages set name = $1 where id = $2 and owner = $3;"
 const statementDeletePage = "delete from pages where id = $1 and owner = $2;"
+const statementSelectPage = "select id, name from pages where id = $1";
 
 // insert a page
 export async function insertPage(page: entity.Page) {
@@ -40,4 +41,24 @@ export async function getPages(owner: string): Promise<entity.Page[]> {
     }, owner);
 
     return pages;
+}
+
+// get a single page using its id
+export async function getSinglePage(pageId: string): Promise<entity.Page> {
+
+    const pages: entity.Page[] = [];
+    await queryWithTransaction(statementSelectPage, function scanRows(result: QueryResult<any>): Error | undefined {
+            
+        for (let i = 0; i < result.rows.length; ++i) {
+            pages.push(result.rows[i]);
+        }
+        return undefined;
+    }, pageId);
+
+    if (pages.length === 1) {
+        return pages[0];
+    } else {
+        const blankPage: entity.Page = { id: '', owner: '', name: '' };
+        return blankPage;
+    }
 }
