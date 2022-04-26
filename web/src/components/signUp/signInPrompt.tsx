@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style/auth.css";
+import "../../styles/auth.css";
 import {Link} from "react-router-dom";
 
 function SignInPrompt(): JSX.Element{

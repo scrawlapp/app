@@ -3,7 +3,7 @@ import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { Block } from '../block/block';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import "../../style/page.css"
+import "../../styles/page.css"
 
 // describe the props to be passed into Page
 export interface PageProps {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style/auth.css";
+import "../../styles/auth.css";
 import { useForm } from "react-hook-form";
 import PopUp from "../popUpWindow/popUp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

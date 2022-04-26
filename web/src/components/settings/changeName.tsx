@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../style/settings.css";
+import "../../styles/settings.css";
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../../style/landingPage.css';
+import '../../styles/landingPage.css';
 import {useNavigate} from 'react-router-dom';
 
 function LandingPage(){
