@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page } from '../page/page';
 import PopUpForm from '../popUpWindow/popUpForm';
+import PopUp from "../popUpWindow/popUp";
 import '../../style/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup, faGear, faRightFromBracket, faEllipsis, faLariSign } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +28,10 @@ export interface SelectedPageStructure {
 }
 
 const { REACT_APP_MOOD_ADDRESS } = process.env;
+
+function getClassName(pageId: string, selectedPageId: string): string {
+    return (pageId === selectedPageId) ? 'selectedPage' : 'pageList'
+}
 
 // GET /api/page/all/
 // takes in the state updater function to add data
@@ -60,36 +65,6 @@ function fetchAllSharedPages(setSharedPagesList: React.Dispatch<React.SetStateAc
     .catch((err) => console.log(err));
 }
 
-async function getMood(pageId: string) {
-    try {
-        const response = await fetch(`/api/block/all/${pageId}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        const data = await response.json();
-        let text = '';
-        for (let i = 0; i < data.length; ++i) {
-            text += data[i].html;
-        }
-        const moodResponse = await fetch(`${REACT_APP_MOOD_ADDRESS}/api`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "userInput": text
-            })
-        });
-        const moodData = await moodResponse.json();
-        console.log(moodData);
-    } catch (err) {
-        console.log(err);
-    }
-}
 
 // the Home component
 export function Home(): JSX.Element {
@@ -105,10 +80,13 @@ export function Home(): JSX.Element {
     const navigate = useNavigate();
     const [displayStyle, changeDisplay] = React.useState("none");
     const [display, setDisplay] = React.useState("none");
+    const [mood, changeMood] = React.useState("");
 
     let miscalleneousStyle = {
         display: displayStyle
     }
+
+    let color = "#2A52BE";
 
     // fetch only once, when the component is mounted onto the DOM
     // and when pageFetchCue changes.
@@ -117,6 +95,41 @@ export function Home(): JSX.Element {
         fetchAllSharedPages(setSharedPagesList);
     }, [pageFetchCue]);
 
+
+
+
+    async function getMood(pageId: string) {
+        try {
+            const response = await fetch(`/api/block/all/${pageId}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await response.json();
+            let text = '';
+            for (let i = 0; i < data.length; ++i) {
+                text += data[i].html;
+            }
+            const moodResponse = await fetch(`${REACT_APP_MOOD_ADDRESS}/api`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "userInput": text
+                })
+            });
+            const moodData = await moodResponse.json();
+            console.log(moodData);
+            changeMood(moodData);
+            setDisplay("inline-block");
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     // DELETE /api/page/
     function deletePage(pageId: string) {
@@ -206,7 +219,7 @@ export function Home(): JSX.Element {
     function deleteAccount() {
 
         fetch('/api/user', {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -258,26 +271,28 @@ export function Home(): JSX.Element {
             </div>
 
             <div className='sideNavBar'>
+                <br/>
+                <h3 className='pageType'>Your Pages</h3>
                 {pagesList.map((page) => (
-                    <button className='pageList' onClick={() => setSelectedPage({
+                    <button className={getClassName(page.id, selectedPage.id)} onClick={() => setSelectedPage({
                         id: page.id,
                         name: page.name,
                         shared: false,
                         ability: ''
                     })}>{page.name}</button>
                 ))}<br/><br/>
-                <hr/>
+                <h3 className='pageType'>Shared Pages</h3>
                 {sharedPagesList.map((page) => (
-                    <button className='pageList' onClick={() => setSelectedPage({
+                    <button className={getClassName(page.id, selectedPage.id)} onClick={() => setSelectedPage({
                         id: page.id,
                         name: page.name,
                         shared: true,
                         ability: page.ability
                     })}>{page.name}</button>
-                ))}
+                ))} <br/><br/><hr/><br/>
                 <input className='formInput addPageInput' type='text' placeholder='page name' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setNewPageName(event.target.value);
-                }}></input><br/>
+                }}></input><br/><br/>
                 <button className='formButton addPageButton' onClick={() => insertPage(newPageName)}>Add Page</button>
             </div>
 
@@ -292,6 +307,7 @@ export function Home(): JSX.Element {
                 />
             </div>
             <PopUpForm display={display} changeDisplay={setDisplay} pageId={selectedPage.id}/>
+            <PopUp message={mood} display={display} changeDisplay={setDisplay} color={color} />
 
         </div>
     );
