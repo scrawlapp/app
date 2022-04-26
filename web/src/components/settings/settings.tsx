@@ -8,16 +8,24 @@ import ChangeTheme from "./changeTheme";
 import ChangePassword from "./changePassword";
 import ChangeName from "./changeName";
 
+
+
 function Settings (): JSX.Element {
    const navigate = useNavigate();
 
    const [settingsForm, setForm] = useState(0);
+   const [selectedButton, changeButton] = useState(0)
 
    const updatePassword = <ChangePassword/>;
    const updateName = <ChangeName/>
    const theme = <ChangeTheme/>
 
+   function getClassName(button: number, selectedButton: number): string {
+      return (button === selectedButton) ? 'selectedButton' : 'settingList'
+   }
+
    function setFormState (whichForm: number) {
+      changeButton(whichForm);
       if (whichForm == 0) {
          console.log("In 0");
          setForm(0);
@@ -61,9 +69,9 @@ function Settings (): JSX.Element {
             <button className='icon' onClick={() => navigate(`/home`)}><FontAwesomeIcon className="icons" icon={faHouse} /></button>
          </div>
          <div className='settings'>
-                <button className='settingList' onClick={() => setFormState(0)}>Update Password</button>
-                <button className='settingList' onClick={() => setFormState(1)}>Update Name</button>
-                <button className='settingList' onClick={() => setFormState(2)}>Theme</button>
+                <button className={getClassName(0, selectedButton)} onClick={() => setFormState(0)}>Update Password</button>
+                <button className={getClassName(1, selectedButton)} onClick={() => setFormState(1)}>Update Name</button>
+                <button className={getClassName(2, selectedButton)} onClick={() => setFormState(2)}>Theme</button>
          </div>
          {
             changeForm()
