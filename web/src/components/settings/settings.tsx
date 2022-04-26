@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import "../../styles/settings.css";
+import '../../styles/settings.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import {useNavigate} from "react-router-dom";
-import { useForm } from "react-hook-form";
-import ChangeTheme from "./changeTheme";
-import ChangePassword from "./changePassword";
-import ChangeName from "./changeName";
-
-
+import {useNavigate} from 'react-router-dom';
+import ChangeTheme from './changeTheme';
+import ChangePassword from './changePassword';
+import ChangeName from './changeName';
 
 function Settings (): JSX.Element {
    const navigate = useNavigate();
@@ -58,7 +55,6 @@ function Settings (): JSX.Element {
          return updatePassword;
       }
    }
-
 
    return (
       <div className="settingsContainer">

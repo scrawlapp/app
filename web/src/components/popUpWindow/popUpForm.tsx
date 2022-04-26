@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import "../../styles/popUp.css";
-import { useForm } from "react-hook-form";
-import PopUp from "../popUpWindow/popUp";
+import React from 'react';
+import '../../styles/popUp.css';
+import { useForm } from 'react-hook-form';
+import PopUp from '../popUpWindow/popUp';
 
 function PopUpForm (props: any): JSX.Element {
    const {register, handleSubmit} = useForm();
@@ -23,7 +23,7 @@ function PopUpForm (props: any): JSX.Element {
       right: "35px"
    }
 
-   function Done () {
+   function done () {
       props.changeDisplay("none");
    }
 
@@ -67,7 +67,7 @@ function PopUpForm (props: any): JSX.Element {
             <input className = "formInput popUpInput" type="radio" {...register("ability", {required: true})} name="ability" value="editor"/> <span className='radioText'>Editor</span>
             <input className = "formInput popUpInput" type="radio" {...register("ability", {required: true})} name="ability"  value="viewer"/>  <span className='radioText'>Viewer</span>
             <button className='popUpFormButton' style={AddButtonStyle} type="submit">Add User</button>
-            <button className='popUpFormButton' style={DoneButtonStyle} onClick={Done}>Exit</button>
+            <button className='popUpFormButton' style={DoneButtonStyle} onClick={done}>Exit</button>
          </form>
          <PopUp message={popUpMessage} display={displayStyle} changeDisplay={changeDisplay} color={color} />
       </div>
