@@ -1,7 +1,7 @@
 import React from "react";
 import SignUpForm from "./signUpForm";
 import SignInPrompt from "./signInPrompt";
-import "../../style/auth.css";
+import "../../styles/auth.css";
 
 function SignUp(): JSX.Element{
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Page } from '../page/page';
 import PopUpForm from '../popUpWindow/popUpForm';
 import PopUp from "../popUpWindow/popUp";
-import '../../style/home.css';
+import '../../styles/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup, faGear, faRightFromBracket, faEllipsis, faLariSign } from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from "react-router-dom";

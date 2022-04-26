@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../style/popUp.css";
+import "../../styles/popUp.css";
 import { useForm } from "react-hook-form";
 import PopUp from "../popUpWindow/popUp";
 
