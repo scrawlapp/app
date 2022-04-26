@@ -42,13 +42,13 @@ function ChangePassword (): JSX.Element {
       <div className='settingsForm'>
          <h1 className='settingName'>Update Password: </h1>
          <form className = "form sForm" onSubmit = {handleSubmit(onSubmit)}>
-            <br/><br/><br/><br/>
+            <br/><br/>
             <input className = "formInput" {...register("oldPassword", {required: true})} type="password" name="oldPassword"  placeholder="current password"/>
             <br/><br/>
             <input className = "formInput" {...register("newPassword", {required: true})} type="password" name="newPassword" placeholder="new password"/>
             <br/><br/>
             <input className = "formInput" {...register("reNewPassword", {required: true})} type="password" name="reNewPassword" placeholder="new password"/>
-            <br/><br/>
+            <br/><br/><br/>
             <button className = "formButton" type="submit"><strong>Change</strong></button> 
          </form>
       </div>

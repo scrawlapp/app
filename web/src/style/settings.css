@@ -61,11 +61,26 @@ body {
    background-color: #f1f1f1;
    border-radius: 10px;
    font-weight: bold;
+   cursor: pointer;
 }
 
 .settingList:hover {
-   background-color: rgba(42,82,190,0.8);
+   background-color: #3c61c6;
    color: white;
+}
+
+.selectedButton {
+   border: 0;
+   width: 100%;
+   text-align: left;
+   padding: 28px 18px;
+   padding-left: 45px;
+   font-size: 29px;
+   background-color: #3c61c6;
+   color: white;
+   border-radius: 10px;
+   font-weight: bold;
+   cursor: pointer;
 }
 
 .settingName {
@@ -87,6 +102,7 @@ body {
    border: 1px solid #d1d9e6;
    border-radius: 100%;
    box-shadow: 7px 7px 12px #b8b9be, -7px -7px 12px white;
+   cursor: pointer;
 }
 
 .icon:hover {
