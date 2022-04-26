@@ -4,67 +4,25 @@ import PopUpForm from '../popUpWindow/popUpForm';
 import PopUp from "../popUpWindow/popUp";
 import '../../styles/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGroup, faGear, faRightFromBracket, faEllipsis, faLariSign } from '@fortawesome/free-solid-svg-icons';
+import { faUserGroup, faGear, faRightFromBracket, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import {
+    PageStructure,
+    SharedPageStructure,
+    SelectedPageStructure,
+    fetchAllPages,
+    fetchAllSharedPages,
+    getMoodAndUpdateUI
+} from './api';
 import {useNavigate} from "react-router-dom";
 
-// describe how the Page looks like in memory
-export interface PageStructure {
-    id: string,
-    owner: string,
-    name: string
-}
-
-export interface SharedPageStructure {
-    id: string,
-    name: string,
-    ability: string
-}
-
-export interface SelectedPageStructure {
-    id: string,
-    name: string,
-    shared: boolean,
-    ability: string
-}
-
+// address of the mood detecting server
 const { REACT_APP_MOOD_ADDRESS } = process.env;
 
+// getClassName helps you produce dynamic class names based on
+// what the selected page is.
 function getClassName(pageId: string, selectedPageId: string): string {
     return (pageId === selectedPageId) ? 'selectedPage' : 'pageList'
 }
-
-// GET /api/page/all/
-// takes in the state updater function to add data
-function fetchAllPages(setPagesList: React.Dispatch<React.SetStateAction<PageStructure[]>>) {
-
-    fetch('/api/page/all', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then((response) => response.json())
-    .then((data) => setPagesList(data))
-    .catch((err) => console.log(err));
-}
-
-// GET /api/ability/pages/
-// takes in the state updater function to add data
-function fetchAllSharedPages(setSharedPagesList: React.Dispatch<React.SetStateAction<SharedPageStructure[]>>) {
-
-    fetch('/api/ability/pages', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then((response) => response.json())
-    .then((data) => setSharedPagesList(data))
-    .catch((err) => console.log(err));
-}
-
 
 // the Home component
 export function Home(): JSX.Element {
@@ -80,7 +38,7 @@ export function Home(): JSX.Element {
     const navigate = useNavigate();
     const [displayStyle, changeDisplay] = React.useState("none");
     const [display, setDisplay] = React.useState("none");
-    const [mood, changeMood] = React.useState("");
+    const [mood, setMood] = React.useState("");
 
     let miscalleneousStyle = {
         display: displayStyle
@@ -94,42 +52,6 @@ export function Home(): JSX.Element {
         fetchAllPages(setPagesList);
         fetchAllSharedPages(setSharedPagesList);
     }, [pageFetchCue]);
-
-
-
-
-    async function getMood(pageId: string) {
-        try {
-            const response = await fetch(`/api/block/all/${pageId}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            const data = await response.json();
-            let text = '';
-            for (let i = 0; i < data.length; ++i) {
-                text += data[i].html;
-            }
-            const moodResponse = await fetch(`${REACT_APP_MOOD_ADDRESS}/api`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "userInput": text
-                })
-            });
-            const moodData = await moodResponse.json();
-            console.log(moodData);
-            changeMood(moodData);
-            setDisplay("inline-block");
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     // DELETE /api/page/
     function deletePage(pageId: string) {
@@ -246,10 +168,9 @@ export function Home(): JSX.Element {
         }
     }
 
-    function share () {
+    function share() {
         setDisplay("inline-block");
     }
-
 
     return (
         <div className="grid-container" >
@@ -267,7 +188,8 @@ export function Home(): JSX.Element {
 
             <div className="miscalleneous" style={miscalleneousStyle}>
                 <button className='miscalleneousButton' onClick={deleteAccount}>Delete Account</button>
-                <button className='miscalleneousButton' onClick={async () => { await getMood(selectedPage.id) }}>Get Mood</button>
+                <button className='miscalleneousButton' onClick={async () => { await getMoodAndUpdateUI(selectedPage.id,
+                                                                                REACT_APP_MOOD_ADDRESS || '', setMood, setDisplay) }}>Get Mood</button>
             </div>
 
             <div className='sideNavBar'>
