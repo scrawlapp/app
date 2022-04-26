@@ -1,6 +1,9 @@
 import React from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { Block } from '../block/block';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import "../../style/page.css"
 
 // describe the props to be passed into Page
 export interface PageProps {
@@ -122,6 +125,11 @@ export function Page(props: PageProps): JSX.Element {
     const [blocks, setBlocks] = React.useState<BlockStructure[]>([]);
     const pageNameRef = React.useRef(props.pageName);
     const [deletePageCue, deletePageCueCaller] = React.useState<number>(0);
+    const pageButton = {
+        marginLeft: "3%",
+        marginBottom: "15px",
+        marginTop: "10px"
+    }
 
     // we fetch all blocks only when pageId changes
     // or the Page component is mounted onto the DOM
@@ -151,16 +159,19 @@ export function Page(props: PageProps): JSX.Element {
         props.updatePageName(props.pageId, pageNameRef.current);
     }
 
-    const stylePageName = {
-        textAlign: 'left',
-        fontSize: '32px',
-        fontWeight: 'bold',
-        margin: '25px 25px'
-    }
+    // const stylePageName = {
+    //     textAlign: 'left',
+    //     fontSize: '32px',
+    //     fontWeight: 'bold',
+    //     margin: '25px 25px'
+    // }
 
     if (blocks.length === 0) {
         return(
-            <h4>click on a page to begin</h4>
+            <div>
+                <br/>
+                <h1 className="noPageSelected">No page is selected,<br/>please select a page.</h1>
+            </div>
         );
     }
 
@@ -172,21 +183,24 @@ export function Page(props: PageProps): JSX.Element {
 
     return(
         <div>
+
             <ContentEditable
                 html={props.pageName}
                 tagName='p'
                 onChange={handlePageNameChange}
                 onBlur={handlePageNameBlur}
-                style={stylePageName}
+                className="pageTitle"
+                // style={stylePageName}
             ></ContentEditable>
 
+            
             <button onClick={() => {
                 if (props.shared && props.ability !== 'editor') {
                     return;
                 }
                 props.deletePage(props.pageId);
                 deletePageCueCaller(deletePageCue + 1);
-            }}>delete this page</button>
+            }} className="iconButton" style={pageButton}><FontAwesomeIcon className="icons" icon={faTrash} /></button>
 
             {blocks.map((block, index) => (
                 <Block 
@@ -207,6 +221,8 @@ export function Page(props: PageProps): JSX.Element {
                     canEdit={!props.shared || (props.shared && props.ability === 'editor')}
                 />)
             )}
+
+
         </div>
     )
 }
