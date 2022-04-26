@@ -1,5 +1,5 @@
 import React from 'react';
-import { Block, HeadingBlock, ContentEditableEvent } from '../block/block';
+import { Block, HeadingBlock, ContentEditableEvent } from '../block/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { BlockStructure, 
