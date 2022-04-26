@@ -71,7 +71,6 @@ function handleChange(event: ContentEditableEvent, blockRef: React.MutableRefObj
 
     if (event !== null) {
         blockRef.current = event.target.value;
-        console.log(blockRef.current);
         socket.emit('page diff', {
             pageId: props.pageId,
             blockId: props.id,

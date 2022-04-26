@@ -10,60 +10,54 @@ export interface BlockStructure {
     src: string | null
 }
 
-const headers = {
+const headers =  {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
 
 // POST /api/block/
-export async function insertAnEmptyBlock(pageId: string, position: number) {
+export function insertAnEmptyBlock(pageId: string, position: number) {
 
     if (pageId.length < 32) {
         return;
     }
 
-    try {
-        await fetch('/api/block', {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                pageId,
-                tag: 'p',
-                html: '',
-                position,
-                src: null,
-                href: null
-            })
-        });
-    } catch (err) {
-        console.log(err);
-    }
+    fetch('/api/block/', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+            pageId,
+            tag: 'p',
+            html: '',
+            position,
+            src: null,
+            href: null
+        })
+    })
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
 } 
 
 // PUT /api/block/
-export async function updateBlock(block: any) {
+export function updateBlock(block: any) {
     
-    try {
-        await fetch(`/api/block/`, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(block)
-        });
-    } catch (err) {
-        console.log(err);
-    }
+    fetch(`/api/block/`, {
+        method: 'PUT',
+        headers: headers,
+        body: JSON.stringify(block)
+    })
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
 }
 
 // GET /api/block/all/:pageId
-export async function fetchAllBlocks(pageId: string, 
-        setBlocks: React.Dispatch<React.SetStateAction<BlockStructure[]>>) {
+export function fetchAllBlocks(pageId: string, setBlocks: React.Dispatch<React.SetStateAction<BlockStructure[]>>) {
 
-    try {
-        const response = await fetch(`/api/block/all/${pageId}`, {
-            method: 'GET',
-            headers: headers
-        })
-        const data = await response.json();
+    fetch(`/api/block/all/${pageId}`, {
+        method: 'GET',
+        headers: headers,
+    }).then(response => response.json())
+    .then(data => {
         if (data.length === 0) {
             insertAnEmptyBlock(pageId, 0);
             fetchAllBlocks(pageId, setBlocks);
@@ -72,21 +66,20 @@ export async function fetchAllBlocks(pageId: string,
         data.sort((a: BlockStructure, b: BlockStructure): number => {
             return a.position - b.position;
         });
-    } catch (err) {
+        setBlocks(data);
+    }).catch((err) => {
         console.log(err);
-    }
+    });
 }
 
 // DELETE /api/block/
-export async function deleteBlock(blockId: string) {
+export function deleteBlock(blockId: string) {
 
-    try {
-        await fetch(`/api/block/`, {
-            method: 'DELETE',
-            headers: headers,
-            body: JSON.stringify({id: blockId})
-        })
-    } catch (err) {
-        console.log(err);
-    }
+    fetch(`/api/block/`, {
+        method: 'DELETE',
+        headers: headers,
+        body: JSON.stringify({id: blockId})
+    })
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
 }
