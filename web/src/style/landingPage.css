@@ -8,15 +8,13 @@
   font-family: 'Inter', sans-serif;
 }
 
-.body {
+body {
   background-color: #E8F2FF;
-  width: 100vw;
-  height: 100vh;
 }
 
 .scrawlTitle {
   font-family: 'Pacifico', cursive;
-  font-size: 65px;
+  font-size: 70px;
   text-align: center;
 }
 
@@ -68,12 +66,13 @@
   width: 210px;
   padding: 10px 25px;
   margin: 60px 20px;
-  font-size: 29px;
+  font-size: 27px;
   color: white;
   text-align: center;
-  background-color: #2A52BE;
+  cursor: pointer;
+  background-color: #1943b6;
   opacity: 79%;
-  border: 2px solid rgba(42,82,190,1);
+  border: 2px solid #1943b6;
   border-radius: 10px;
   box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
   text-decoration: none;
