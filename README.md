@@ -8,6 +8,8 @@ scrawl is a block-based editor. It is inspired by [Notion](notion.so/) but aims 
 2. React
 3. Heroku
 4. Python
+5. Postgresql
+6. Redis
 
 ## API documentation
 
