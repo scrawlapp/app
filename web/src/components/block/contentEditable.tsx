@@ -47,3 +47,5 @@ export default function ContentEditable({
     />
   );
 }
+
+export type { ContentEditableEvent } from 'react-contenteditable';
