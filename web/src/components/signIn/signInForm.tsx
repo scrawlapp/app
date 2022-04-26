@@ -3,6 +3,8 @@ import "../../style/auth.css";
 import { useForm } from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import PopUp from "../popUpWindow/popUp";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 function SignInForm(): JSX.Element{
@@ -12,6 +14,41 @@ function SignInForm(): JSX.Element{
    const [displayStyle, changeDisplay] = React.useState("none");
    const [popUpMessage, setMessage] = React.useState("");
    const color = "#e0490d";
+   const [passwordType, changeType] = React.useState("password");
+
+   const passwordInputStyle = {
+      width: "225px"
+   }
+   
+   const iconButtonStyle = {
+      marginTop: "18px",
+      marginLeft: "15px",
+      boxShadow: "none",
+      border: "none",
+      height: "30px",
+      width: "30px"
+   }
+
+
+
+   const [passwordEye, changeEye] = React.useState(
+      <button className='iconButton' onClick={showPassword} style={iconButtonStyle} ><FontAwesomeIcon className="icons" icon={faEye}/></button>
+   );
+
+   function showPassword () {
+      changeType("text");
+      changeEye(
+         <button className='iconButton' onClick={hidePassword} style={iconButtonStyle} ><FontAwesomeIcon className="icons" icon={faEyeSlash}/></button>
+      )
+   }
+
+   function hidePassword () {
+      changeType("password");
+      changeEye(
+         <button className='iconButton' onClick={showPassword} style={iconButtonStyle}><FontAwesomeIcon className="icons" icon={faEye}/>
+         </button>
+      )
+   }
 
    function onSubmit(data: any){
       localStorage.setItem('email', data.email);
@@ -52,8 +89,9 @@ function SignInForm(): JSX.Element{
                <br/><br/><br/><br/>
                <input className = "formInput" id="emailInput" {...register("email", {required: true})} name="email"  placeholder="email"/>
                <br/><br/>
-               <input className = "formInput" {...register("password", {required: true})} type="password" name="password" placeholder="password"/>
-               <br/><br/>
+               <input className = "formInput" {...register("password", {required: true})} type={passwordType} name="password" placeholder="password" style={passwordInputStyle}/>
+               {passwordEye}
+               <br/><br/><br/>
                <button className = "formButton" type="submit"><strong>Sign In</strong></button> 
             </form>
          </div>
