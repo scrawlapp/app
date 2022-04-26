@@ -76,10 +76,11 @@ body {
    border: 1px solid #d1d9e6;
    border-radius: 100%;
    box-shadow: 5px 5px 10px #b8b9be, -6px -6px 10px white;
+   cursor: pointer;
 }
 
 .iconButton:hover {
-   scale: 1.07;
+   scale: 1.15;
    box-shadow: 8px 8px 13px #b8b9be;
 }
 
@@ -91,11 +92,11 @@ body {
    font-size: 25px;
    background-color: #f1f1f1;
    border-radius: 10px;
-   font-weight: bold;
+   font-weight: 400;
 }
 
 .pageList:hover {
-   background-color: #2A52BE;
+   background-color: #3c61c6;
    color: white;
 }
 
@@ -127,10 +128,10 @@ body {
    margin-top: 26px;
    padding: 10px 15px;
    font-size: 25px;
+   cursor: pointer;
    color: white;
-   background-color: #2A52BE;
-   opacity: 79%;
-   border: 2px solid rgba(42,82,190,1);
+   background-color: #2e56c6;
+   border: 2px solid #2e56c6;
    border-radius: 10px;
    box-shadow: 6px 6px 10px #172c66, -4px -4px 5px rgba(42,82,190,0.4);
 }
@@ -147,4 +148,24 @@ body {
    width: 191px;
    font-size: 30px;
    margin-left: 18px;
+}
+
+.pageType {
+   font-size: 26px;
+   text-align: left;
+   margin: 10px;
+   margin-left: 18px;
+   text-decoration: underline;
+}
+
+.selectedPage {
+   border: 0;
+   width: 100%;
+   text-align: left;
+   padding: 10px 18px;
+   font-size: 25px;
+   color: white;
+   background-color: #3c61c6;
+   border-radius: 10px;
+   font-weight: 400;
 }
