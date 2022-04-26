@@ -15,7 +15,7 @@ scrawl is a block-based editor. It is inspired by [Notion](notion.so/) but aims 
 
 ## pre-build
 
-prepare your .env file using the [.env.example](./env.example) file.
+prepare your .env file using the [.env.example](./.env.example) file.
 
 ## build
 
