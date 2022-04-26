@@ -20,6 +20,15 @@ export interface BlockProps {
     canEdit: boolean
 }
 
+export interface HeadingProps {
+
+    html: string
+    tagName: string
+    className: string
+    onChange: (event: ContentEditableEvent) => void
+    onBlur: () => React.FocusEventHandler<HTMLDivElement> | undefined
+}
+
 // attempt to establish connection with the server
 const socket = io();
 
@@ -132,3 +141,18 @@ export function Block(props: BlockProps): JSX.Element {
         />
     );
 }
+
+export function HeadingBlock(props: HeadingProps): JSX.Element {
+
+    return (
+        <ContentEditable
+            html={props.html}
+            tagName={props.tagName}
+            onChange={props.onChange}
+            onBlur={props.onBlur}
+            className="pageTitle"
+        />
+    );
+}
+
+export type { ContentEditableEvent } from './contentEditable';
