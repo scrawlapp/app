@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page } from '../page/page';
+import { Page } from '../page/';
 import PopUpForm from '../popUpWindow/popUpForm';
 import PopUp from "../popUpWindow/popUp";
 import '../../styles/home.css';

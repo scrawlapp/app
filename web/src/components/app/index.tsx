@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Routes, Route} from 'react-router-dom';
-import Signup from '../signUp/signUp';
-import SignIn from '../signIn/signIn';
-import {Home} from '../home/home';
-import Settings from '../settings/settings';
-import LandingPage from '../landingPage/landingPage';
+import Signup from '../signUp/';
+import SignIn from '../signIn';
+import {Home} from '../home/';
+import Settings from '../settings';
+import LandingPage from '../landingPage/';
 
 function App(): JSX.Element {
   
