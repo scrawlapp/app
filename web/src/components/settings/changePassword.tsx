@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import "../../styles/settings.css";
-import { useForm } from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import React from 'react';
+import '../../styles/settings.css';
+import { useForm } from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
 function ChangePassword (): JSX.Element {
    const {register, handleSubmit} = useForm();

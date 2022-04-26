@@ -1,11 +1,10 @@
 import React from "react";
-import "../../styles/auth.css";
-import { useForm } from "react-hook-form";
-import {useNavigate} from "react-router-dom";
-import PopUp from "../popUpWindow/popUp";
+import '../../styles/auth.css';
+import { useForm } from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
+import PopUp from '../popUpWindow/popUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
 
 function SignInForm(): JSX.Element{
    const {register, handleSubmit} = useForm();

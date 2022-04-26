@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import "../../styles/settings.css";
-import { useForm } from "react-hook-form";
+import React from 'react';
+import '../../styles/settings.css';
 
 function ChangeTheme (): JSX.Element {
    return (

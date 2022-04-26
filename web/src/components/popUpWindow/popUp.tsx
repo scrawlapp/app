@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import "../../styles/popUp.css";
+import Reac from 'react';
+import '../../styles/popUp.css';
 
-function PopUp (props: any): JSX.Element {
-
-
+function PopUp(props: any): JSX.Element {
 
    let popUpStyle = {
       display: props.display

@@ -1,10 +1,9 @@
-import React from "react";
-import "../../styles/auth.css";
-import { useForm } from "react-hook-form";
-import PopUp from "../popUpWindow/popUp";
+import React from 'react';
+import '../../styles/auth.css';
+import { useForm } from 'react-hook-form';
+import PopUp from '../popUpWindow/popUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
 
 function SignUpForm(): JSX.Element{
 
@@ -27,8 +26,6 @@ function SignUpForm(): JSX.Element{
       height: "30px",
       width: "30px"
    }
-
-
 
    const [passwordEye, changeEye] = React.useState(
       <button className='iconButton' onClick={showPassword} style={iconButtonStyle} ><FontAwesomeIcon className="icons" icon={faEye}/></button>
@@ -73,7 +70,6 @@ function SignUpForm(): JSX.Element{
          }
       })
    }
-
 
    return(
       <div>

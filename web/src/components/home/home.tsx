@@ -133,9 +133,9 @@ export function Home(): JSX.Element {
                 navigate(`/`);
             }
          })
-         .then((data) => {
-            console.log(data);
-         })
+         .catch((err) => {
+            console.log(err);
+        });
     }
 
     function deleteAccount() {
@@ -154,8 +154,8 @@ export function Home(): JSX.Element {
                 navigate(`/`);
             }
          })
-         .then((data) => {
-            console.log(data);
+         .catch((err) => {
+             console.log(err);
          });
     }
 
