@@ -24,6 +24,15 @@ function getClassName(pageId: string, selectedPageId: string): string {
     return (pageId === selectedPageId) ? 'selectedPage' : 'pageList'
 }
 
+// removeBreakTag removes <br> from end of input.
+function removeBreakTag(input: string): string {
+
+    if (input.endsWith('<br>')) {
+        return removeBreakTag(input.slice(0, -4));
+    }
+    return input;
+}
+
 // the Home component
 export function Home(): JSX.Element {
 
@@ -202,7 +211,7 @@ export function Home(): JSX.Element {
                         name: page.name,
                         shared: false,
                         ability: ''
-                    })}>{page.name}</button>
+                    })}>{removeBreakTag(page.name)}</button>
                 ))}<br/><br/>
                 <h3 className='pageType'>Shared Pages</h3>
                 {sharedPagesList.map((page) => (
@@ -211,7 +220,7 @@ export function Home(): JSX.Element {
                         name: page.name,
                         shared: true,
                         ability: page.ability
-                    })}>{page.name}</button>
+                    })}>{removeBreakTag(page.name)}</button>
                 ))} <br/><br/><hr/><br/>
                 <input className='formInput addPageInput' type='text' placeholder='page name' onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setNewPageName(event.target.value);
@@ -222,7 +231,7 @@ export function Home(): JSX.Element {
             <div className='page'>
                 <Page
                     pageId={selectedPage.id}
-                    pageName={selectedPage.name}
+                    pageName={removeBreakTag(selectedPage.name)}
                     shared={selectedPage.shared}
                     ability={selectedPage.ability}
                     updatePageName={updatePageName}
