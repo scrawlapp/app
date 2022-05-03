@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { BlockService, errors } from '../service/';
+import { BlockService } from '../service/';
 import * as messages from './http_messages';
 
 const blockRouter = express.Router();

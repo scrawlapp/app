@@ -1,17 +1,15 @@
 import React from 'react';
 import '../../styles/settings.css';
 import { useForm } from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
 
 function ChangeName (): JSX.Element {
    const {register: register2, handleSubmit: handleSubmit2} = useForm();
-   const navigate = useNavigate();
    let firstNameData = {};
    let lastNameData = {};
 
    function changeName(data: any, e: any) {
       e.target.reset();
-      if (data.firstName != localStorage.getItem('firstName')) {
+      if (data.firstName !== localStorage.getItem('firstName')) {
          firstNameData = {
             email: localStorage.getItem('email'),
             firstName: data.firstName
@@ -36,7 +34,7 @@ function ChangeName (): JSX.Element {
             console.log(data);
          })
       }
-      if (data.lastName != localStorage.getItem('lastName')) {
+      if (data.lastName !== localStorage.getItem('lastName')) {
          lastNameData = {
             email: localStorage.getItem('email'),
             lastName: data.lastName

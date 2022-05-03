@@ -58,7 +58,7 @@ function SignUpForm(): JSX.Element{
       .then(res => res.json())
       .then(data => {
          console.log(data);
-         if(data.message == "Created."){
+         if(data.message === "Created."){
             setMessage("User Sign Up Successful");
             changeColor("#028a04");
             changeDisplay("inline-block");

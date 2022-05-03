@@ -60,7 +60,7 @@ function SignInForm(): JSX.Element{
          body: JSON.stringify(data)
       })
       .then(res => {
-         if(res.status == 200) {
+         if(res.status === 200) {
             statusCode = true;
          }
          return res.json();

@@ -46,7 +46,7 @@ function PopUpForm (props: any): JSX.Element {
       })
       .then(res => res.json())
       .then(data => {
-         if (data.message == "Created.") {
+         if (data.message === "Created.") {
             e.target.reset();
          }
          else {
