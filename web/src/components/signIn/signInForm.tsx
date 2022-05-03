@@ -31,20 +31,20 @@ function SignInForm(): JSX.Element{
 
 
    const [passwordEye, changeEye] = React.useState(
-      <button className='iconButton' onClick={showPassword} style={iconButtonStyle} ><FontAwesomeIcon className="icons" icon={faEye}/></button>
+      <button className='iconButton' onClick={showPassword} style={iconButtonStyle} type="button" ><FontAwesomeIcon className="icons" icon={faEye}/></button>
    );
 
    function showPassword () {
       changeType("text");
       changeEye(
-         <button className='iconButton' onClick={hidePassword} style={iconButtonStyle} ><FontAwesomeIcon className="icons" icon={faEyeSlash}/></button>
+         <button className='iconButton' onClick={hidePassword} style={iconButtonStyle} type="button"><FontAwesomeIcon className="icons" icon={faEyeSlash}/></button>
       )
    }
 
    function hidePassword () {
       changeType("password");
       changeEye(
-         <button className='iconButton' onClick={showPassword} style={iconButtonStyle}><FontAwesomeIcon className="icons" icon={faEye}/>
+         <button className='iconButton' onClick={showPassword} style={iconButtonStyle} type="button"><FontAwesomeIcon className="icons" icon={faEye}/>
          </button>
       )
    }

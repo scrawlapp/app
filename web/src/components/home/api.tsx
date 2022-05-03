@@ -54,7 +54,7 @@ export function fetchAllSharedPages(setSharedPagesList: React.Dispatch<React.Set
 
 export async function getMoodAndUpdateUI(pageId: string, moodAddress: string,
     setMood: React.Dispatch<React.SetStateAction<string>>,
-    setDisplay: React.Dispatch<React.SetStateAction<string>>) {
+    changeMoodDisplay: React.Dispatch<React.SetStateAction<string>>) {
     try {
         const response = await fetch(`/api/block/all/${pageId}`, {
             method: 'GET',
@@ -80,8 +80,8 @@ export async function getMoodAndUpdateUI(pageId: string, moodAddress: string,
         });
         const moodData = await moodResponse.json();
         console.log(moodData);
-        setMood(moodData);
-        setDisplay("inline-block");
+        setMood(moodData.message);
+        changeMoodDisplay("inline-block");
     } catch (err) {
         console.log(err);
     }

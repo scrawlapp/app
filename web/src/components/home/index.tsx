@@ -38,6 +38,7 @@ export function Home(): JSX.Element {
     const navigate = useNavigate();
     const [displayStyle, changeDisplay] = React.useState("none");
     const [display, setDisplay] = React.useState("none");
+    const [displayMood, changeMoodDisplay] = React.useState("none");
     const [mood, setMood] = React.useState("");
 
     let miscalleneousStyle = {
@@ -189,7 +190,7 @@ export function Home(): JSX.Element {
             <div className="miscalleneous" style={miscalleneousStyle}>
                 <button className='miscalleneousButton' onClick={deleteAccount}>Delete Account</button>
                 <button className='miscalleneousButton' onClick={async () => { await getMoodAndUpdateUI(selectedPage.id,
-                                                                                REACT_APP_MOOD_ADDRESS || '', setMood, setDisplay) }}>Get Mood</button>
+                                                                                REACT_APP_MOOD_ADDRESS || '', setMood, changeMoodDisplay) }}>Get Mood</button>
             </div>
 
             <div className='sideNavBar'>
@@ -229,7 +230,7 @@ export function Home(): JSX.Element {
                 />
             </div>
             <PopUpForm display={display} changeDisplay={setDisplay} pageId={selectedPage.id}/>
-            <PopUp message={mood} display={display} changeDisplay={setDisplay} color={color} />
+            <PopUp message={mood} display={displayMood} changeDisplay={changeMoodDisplay} color={color} />
 
         </div>
     );
