@@ -1,4 +1,4 @@
-import Reac from 'react';
+import React from 'react';
 import '../../styles/popUp.css';
 
 function PopUp(props: any): JSX.Element {
@@ -15,7 +15,7 @@ function PopUp(props: any): JSX.Element {
       console.log(popUpStyle);
       props.changeDisplay("none");
    }
-   if (props.message == "anger") {
+   if (props.message === "anger") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>
@@ -25,7 +25,7 @@ function PopUp(props: any): JSX.Element {
          </div>
       )
    }
-   else if (props.message == "love") {
+   else if (props.message === "love") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>
@@ -35,7 +35,7 @@ function PopUp(props: any): JSX.Element {
          </div>
       )
    }
-   else if (props.message == "sadness") {
+   else if (props.message === "sadness") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>
@@ -45,7 +45,7 @@ function PopUp(props: any): JSX.Element {
          </div>
       )
    }
-   else if (props.message == "joy") {
+   else if (props.message === "joy") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>
@@ -55,7 +55,7 @@ function PopUp(props: any): JSX.Element {
          </div>
       )
    }
-   else if (props.message == "fear") {
+   else if (props.message === "fear") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>
@@ -65,7 +65,7 @@ function PopUp(props: any): JSX.Element {
          </div>
       )
    }
-   else if (props.message == "surprise") {
+   else if (props.message === "surprise") {
       return (
          <div className='popUpBackground' style={popUpStyle}>
             <div className='popUpCard'>

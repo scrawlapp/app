@@ -170,10 +170,10 @@ export function Home(): JSX.Element {
     }
 
     function showMiscalleneous() {
-        if(displayStyle == "none"){
+        if(displayStyle === "none"){
             changeDisplay("inline-block");
         }
-        else if (displayStyle == "inline-block"){
+        else if (displayStyle === "inline-block"){
             changeDisplay("none");
         }
     }

@@ -1,4 +1,3 @@
-import * as entity from '../entity';
 import * as database from '../database';
 import { errors } from '.';
 

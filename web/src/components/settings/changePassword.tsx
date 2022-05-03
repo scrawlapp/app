@@ -1,11 +1,9 @@
 import React from 'react';
 import '../../styles/settings.css';
 import { useForm } from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
 
 function ChangePassword (): JSX.Element {
    const {register, handleSubmit} = useForm();
-   const navigate = useNavigate();
    let data1 = {};
 
    function onSubmit(data: any, e: any) {
@@ -16,7 +14,7 @@ function ChangePassword (): JSX.Element {
          newPassword: data.newPassword
       }
       console.log(data1);
-      if (data.newPassword != data.reNewPassword) {
+      if (data.newPassword !== data.reNewPassword) {
          console.log("New Password doesn't match with re entered new password");
          return;
       }
