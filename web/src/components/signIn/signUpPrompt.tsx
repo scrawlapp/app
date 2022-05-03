@@ -8,7 +8,7 @@ function SignUpPrompt(): JSX.Element{
       <div className="PromptContainer">
          <h1 className="title" id="title">Scrawl</h1>
          <h1 className="h1">Not a user?<br/>Sign Up to start scrawling</h1>
-         <Link className="auth_link" to="/"><strong>Sign Up</strong></Link>
+         <Link className="auth_link" to="/SignUp"><strong>Sign Up</strong></Link>
       </div>
    );
 }
