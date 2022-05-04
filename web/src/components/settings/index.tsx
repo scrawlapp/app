@@ -65,9 +65,9 @@ function Settings (): JSX.Element {
             <button className='icon' onClick={() => navigate(`/home`)}><FontAwesomeIcon className="icons" icon={faHouse} /></button>
          </div>
          <div className='settings'>
-                <button className={getClassName(0, selectedButton)} onClick={() => setFormState(0)}>Update Password</button>
-                <button className={getClassName(1, selectedButton)} onClick={() => setFormState(1)}>Update Name</button>
-                <button className={getClassName(2, selectedButton)} onClick={() => setFormState(2)}>Theme</button>
+                <button id='updatePassword' className={getClassName(0, selectedButton)} onClick={() => setFormState(0)}>Update Password</button>
+                <button id='updateName' className={getClassName(1, selectedButton)} onClick={() => setFormState(1)}>Update Name</button>
+                <button id='updateTheme' className={getClassName(2, selectedButton)} onClick={() => setFormState(2)}>Theme</button>
          </div>
          {
             changeForm()

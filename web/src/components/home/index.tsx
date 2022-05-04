@@ -191,13 +191,13 @@ export function Home(): JSX.Element {
 
             <div className='navBar'>
                 <button className='iconButton' onClick={share}><FontAwesomeIcon className="icons" icon={faUserGroup} /></button>
-                <button className='iconButton' onClick={() => navigate(`/settings`)}><FontAwesomeIcon className="icons" icon={faGear} /></button>
+                <button className='iconButton' id='settingsButton' onClick={() => navigate(`/settings`)}><FontAwesomeIcon className="icons" icon={faGear} /></button>
                 <button className='iconButton' onClick={logOut}><FontAwesomeIcon className="icons" icon={faRightFromBracket} /></button>
-                <button className='iconButton' onClick={showMiscalleneous}><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
+                <button className='iconButton' id='miscButton' onClick={showMiscalleneous}><FontAwesomeIcon className="icons" icon={faEllipsis} /></button>
             </div>
 
             <div className="miscalleneous" style={miscalleneousStyle}>
-                <button className='miscalleneousButton' onClick={deleteAccount}>Delete Account</button>
+                <button id='deleteAccountButton' className='miscalleneousButton' onClick={deleteAccount}>Delete Account</button>
                 <button className='miscalleneousButton' onClick={async () => { await getMoodAndUpdateUI(selectedPage.id,
                                                                                 REACT_APP_MOOD_ADDRESS || '', setMood, changeMoodDisplay) }}>Get Mood</button>
             </div>

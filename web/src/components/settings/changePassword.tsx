@@ -47,7 +47,7 @@ function ChangePassword (): JSX.Element {
             <br/><br/>
             <input className = "formInput" {...register("reNewPassword", {required: true})} type="password" name="reNewPassword" placeholder="new password"/>
             <br/><br/><br/>
-            <button className = "formButton" type="submit"><strong>Change</strong></button> 
+            <button id='updatePasswordButton' className = "formButton" type="submit"><strong>Change</strong></button> 
          </form>
       </div>
    )
