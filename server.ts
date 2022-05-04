@@ -20,8 +20,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api', api);
 
+// Add security headers and enforce https in production
 if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
+    app.all('*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        if (req.headers["x-forwarded-proto"] === "https") {
+            return next();
+        }
+        res.redirect('https://' + req.hostname + req.url);
+    });
 }
 
 // Serve the React App
