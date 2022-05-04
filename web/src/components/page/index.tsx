@@ -120,6 +120,7 @@ export function Page(props: PageProps): JSX.Element {
                     deletePageCueCaller(deletePageCue + 1);
                 }} 
                 className="iconButton" 
+                id='deletePageButton'
                 style={stylePageButton}>
                     <FontAwesomeIcon className="icons" icon={faTrash}/>
                 </button>

@@ -29,7 +29,7 @@ function LandingPage(){
       </div>
       <div className='buttons'>
         <a className='landingPageButtons' href="https://github.com/scrawlapp">Find us on GitHub</a>
-        <button className='landingPageButtons' onClick={getStarted}>Get Started 🚀</button>
+        <button className='landingPageButtons' id='getStartedButton' onClick={getStarted}>Get Started 🚀</button>
       </div>
     </div>
   )

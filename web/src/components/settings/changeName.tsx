@@ -72,7 +72,7 @@ function ChangeName (): JSX.Element {
             <br/><br/><br/>
             <input className = "formInput" {...register2("lastName", {required: true})} defaultValue="" name="lastName" placeholder="last name"/>
             <br/><br/><br/><br/>
-            <button className = "formButton" type="submit"><strong>Change</strong></button> 
+            <button id='updateNameButton' className = "formButton" type="submit"><strong>Change</strong></button> 
          </form>
       </div>
    )
