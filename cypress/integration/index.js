@@ -1,15 +1,32 @@
-describe('Basic test', () => {
-    it('Visits the website', () => {
-      cy.visit('localhost:8080');
-      cy.get('input[name=firstName]').type('testFirstName');
-      cy.get('input[name=lastName]').type('testLastName');
-      cy.get('input[name=email]').type('test@scrawl.com');
-      cy.get('input[name=password]').type('Vivek1234@#');
-      cy.get('.formButton').click();
-      cy.get('.auth_link').click();
-      cy.get('input[name=email]').type('test@scrawl.com');
-      cy.get('input[name=password]').type('Vivek1234@#');
-      cy.get('.formButton').click();
-    })
+describe('Flow', () => {
+  it('Signup + Signin', () => {
+    cy.visit('localhost:8080');
+    cy.get('button[id="getStartedButton"]').click();
+    cy.get('input[name=firstName]').type('testFirstName');
+    cy.get('input[name=lastName]').type('testLastName');
+    cy.get('input[name=email]').type('test@scrawl.com');
+    cy.get('input[name=password]').type('Test1234@#');
+    cy.get('.formButton').click();
+    cy.get('.auth_link').click();
+    cy.get('input[name=email]').type('test@scrawl.com');
+    cy.get('input[name=password]').type('Test1234@#');
+    cy.get('.formButton').click();
+    cy.get('.addPageInput').type('testPage');
+    cy.get('.addPageButton').click();
+    cy.get('.pageList').click();
+    cy.get('button[id="deletePageButton"]').click();
+    cy.get('button[id="settingsButton"]').click();
+    cy.get('button[id="updatePassword"]').click();
+    cy.get('input[name=oldPassword]').type('Test1234@#');
+    cy.get('input[name=newPassword]').type('Test1234@#$');
+    cy.get('input[name=reNewPassword]').type('Test1234@#$');
+    cy.get('button[id="updatePasswordButton"]').click();
+    cy.get('button[id="updateName"]').click();
+    cy.get('input[name=firstName]').type('testFirstNameUpdated');
+    cy.get('input[name=lastName]').type('testLastNameUpdated');
+    cy.get('button[id="updateNameButton"]').click();
+    cy.go('back');
+    cy.get('button[id="miscButton"]').click();
+    cy.get('button[id="deleteAccountButton"]').click();
   })
-  
+})
