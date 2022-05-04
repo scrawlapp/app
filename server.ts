@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import helmet from 'helmet';
 import { setupDatabase } from './database';
 import { setupCache } from './cache';
 import cookieParser from 'cookie-parser';
@@ -19,6 +20,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api', api);
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(helmet());
+}
+
 // Serve the React App
 app.use(express.static('web/build')); 
 
@@ -31,7 +36,7 @@ const socketio = new Server(server);
 // Attach events to this instance
 attachEvents(socketio);
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test') { 
     server.listen(process.env.PORT, () => console.log("Server is up!"));
 }
 
