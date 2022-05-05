@@ -23,11 +23,7 @@ app.use('/api', api);
 // Add security headers and enforce https in production
 if (process.env.NODE_ENV === 'production') {
     app.use(helmet({
-        contentSecurityPolicy: {
-            directives: {
-                "script-src": ["'self'", "scrawlmood.herokuapp.com"],
-            }
-        }
+        contentSecurityPolicy: false
     }));
     app.all('*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
         if (req.headers["x-forwarded-proto"] === "https") {
