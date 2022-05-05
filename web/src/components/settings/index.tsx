@@ -3,7 +3,6 @@ import '../../styles/settings.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from 'react-router-dom';
-import ChangeTheme from './changeTheme';
 import ChangePassword from './changePassword';
 import ChangeName from './changeName';
 
@@ -15,7 +14,6 @@ function Settings (): JSX.Element {
 
    const updatePassword = <ChangePassword/>;
    const updateName = <ChangeName/>
-   const theme = <ChangeTheme/>
 
    function getClassName(button: number, selectedButton: number): string {
       return (button === selectedButton) ? 'selectedButton' : 'settingList'
@@ -47,10 +45,6 @@ function Settings (): JSX.Element {
          console.log("In return 2");
          return updateName;
       }
-      else if (settingsForm === 2) {
-         console.log("In return 3");
-         return theme;
-      }
       else {
          return updatePassword;
       }
@@ -67,7 +61,6 @@ function Settings (): JSX.Element {
          <div className='settings'>
                 <button id='updatePassword' className={getClassName(0, selectedButton)} onClick={() => setFormState(0)}>Update Password</button>
                 <button id='updateName' className={getClassName(1, selectedButton)} onClick={() => setFormState(1)}>Update Name</button>
-                <button id='updateTheme' className={getClassName(2, selectedButton)} onClick={() => setFormState(2)}>Theme</button>
          </div>
          {
             changeForm()
